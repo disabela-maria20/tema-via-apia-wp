@@ -1,0 +1,127 @@
+$valor_gap: 2, 4, 8, 10, 16, 22, 24, 32, 46, 58, 64, 72, 92, 124;
+$grid-breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);
+
+@mixin media($breakpoint) {
+  $breakpoint-value: map-get($grid-breakpoints, $breakpoint);
+
+  @if not $breakpoint-value {
+    @error "Invalid breakpoint: #{$breakpoint}.";
+  }
+
+  @media (min-width: $breakpoint-value) {
+    @content;
+  }
+}
+
+@mixin container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 25px;
+
+  @include media("sm") {
+    max-width: calc(map-get($grid-breakpoints, sm) - 10px);
+  }
+
+  @include media("md") {
+    max-width: calc(map-get($grid-breakpoints, md) - 10px);
+  }
+
+  @include media("lg") {
+    max-width: calc(map-get($grid-breakpoints, lg) - 10px);
+  }
+
+  @include media("xl") {
+    max-width: calc(map-get($grid-breakpoints, xl) - 10px);
+  }
+
+  @include media("xxl") {
+    max-width: calc(map-get($grid-breakpoints, xxl) - 10px);
+  }
+}
+
+.container {
+  @include container;
+}
+
+.grid {
+  display: grid;
+}
+
+@for $i from 1 through 5 {
+  $columns: 1 * $i;
+
+  .grid-#{$i} {
+    grid-template-columns: repeat(#{$i}, 1fr);
+  }
+
+  @each $breakpoint, $value in $grid-breakpoints {
+    @include media($breakpoint) {
+      .grid-#{$i}-#{$breakpoint} {
+        grid-template-columns: repeat(#{$i}, 1fr);
+      }
+    }
+  }
+}
+
+@each $size in $valor_gap {
+  .gap-#{$size} {
+    gap: #{$size}px;
+  }
+
+  @each $breakpoint, $value in $grid-breakpoints {
+    @include media($breakpoint) {
+      .gap-#{$size}-#{$breakpoint} {
+        gap: #{$size}px;
+      }
+    }
+  }
+}
+
+
+@mixin FontSize($size, $family) {
+  font-family: $family;
+
+  @if $size ==14 {
+    font-size: 14px;
+  }
+
+  @if $size ==16 {
+    font-size: 16px;
+  }
+
+  @else if $size ==22 {
+    font-size: 22px;
+    line-height: 39.6px;
+  }
+
+  @else if $size ==26 {
+    font-size: 26px;
+  }
+
+  @else if $size ==38 {
+    font-size: 38px;
+  }
+
+  @else if $size ==48 {
+    font-size: 48px;
+  }
+
+  @else if $size ==58 {
+    font-size: 58px;
+  }
+
+  @else if $size ==64 {
+    font-size: 64px;
+  }
+
+  @else {
+    font-size: 14px;
+  }
+}
+

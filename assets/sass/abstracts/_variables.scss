@@ -1,0 +1,30 @@
+// Cores 
+$primary-color-gradient: #671605;
+$secondary-color-gradient: #531204;
+
+$primary-color: #8C0000;
+$primary-dark-color: #531104;
+$secondary-color: #AE833C;
+
+$primary-light-color: #F6F6F6;
+$secondary-light-color: #F6F6F6;
+
+$primary-gray-color: #969696;
+$secondary-gray-color: #525252;
+$tertiary-gray-color: #2B2B2B;
+
+$primary-dark-color: #111111;
+$secondary-dark-color: #151515;
+$tertiary-dark-color: #1B1B1B;
+
+// Breakpoints
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+);
+
+$font-family: 'Neo Sans', sans-serif;
