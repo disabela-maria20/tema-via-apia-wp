@@ -1,7 +1,12 @@
-@import './lib/reset';
+@import './lib/splide-default.min.scss';
+@import './lib/splide.min.scss';
 
 @import './abstracts/variables';
 @import './abstracts/mixins';
 
-@import './page/home';
+@import './lib/reset';
 
+@import './layout/footer';
+@import './layout/header';
+
+@import './page/home';

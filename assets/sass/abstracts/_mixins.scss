@@ -125,3 +125,57 @@ $grid-breakpoints: (
   }
 }
 
+@mixin CTAButton ($padding) {
+  border-radius: 10px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: $primary-light-color !important;
+
+  font: {
+    family: $font-family;
+    size: 14px;
+    style: normal;
+    weight: 600;
+  }
+
+  line-height: normal;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  transition: background-size 2s;
+  text-decoration: none;
+  position: relative;
+  z-index: 1;
+
+  &::after {
+    content: '';
+    transition: transform 0.2s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $secondary-color;
+    transform: skewX(-15deg);
+    border-radius: 10px;
+    z-index: -1;
+    
+  }
+  &:hover::after {
+    transform: scale(1.1) skewX(-15deg);
+    cursor: pointer;
+  }
+  &:hover {
+
+    cursor: pointer;
+  }
+
+  @if ($padding =='lg') {
+    padding: 22px 54px;
+  }
+
+  @else if($padding =='sm') {
+    padding: 10px 15px;
+  }
+}

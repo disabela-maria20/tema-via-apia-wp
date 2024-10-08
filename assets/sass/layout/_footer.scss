@@ -1,0 +1,186 @@
+.rodape {
+  background: linear-gradient(90deg, $primary-color-gradient, $secondary-color-gradient);
+  padding: 20px 0;
+  position: relative;
+  z-index: 1;
+  padding: 35px 0;
+  overflow: hidden;
+  scrollbar-width: none;
+
+  @include media(lg) {
+    padding: 90px 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('../images/logo-icon.png') no-repeat center right;
+    background-size: contain;
+    // z-index: 999;
+    margin-left: 50%;
+    transform: scale(1.1);
+    top: 0;
+    left: 0;
+    z-index: -1;
+
+  }
+
+  .grid {
+    gap: 35px;
+
+    @include media(lg) {
+      gap: 35px;
+      grid-template-columns: 1fr 1fr 1fr 2fr;
+    }
+
+    img {
+      width: 100%;
+      height: 170px;
+      object-fit: contain;
+    }
+
+    .redes {
+      display: flex;
+      justify-content: center;
+      flex-direction: row;
+      gap: 20px;
+      margin-top: 15px;
+
+      li {
+        a {
+          color: $primary-light-color;
+          font-size: 2.4rem;
+          transition: color 200ms ease-in;
+
+          &:hover {
+            color: $secondary-color;
+          }
+
+          i {}
+        }
+      }
+    }
+
+    .contato {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      color: $primary-light-color;
+
+      address,
+      a,
+      p {
+        color: $primary-light-color;
+        font-style: normal;
+        font-size: 1.4rem;
+        line-height: 2.4rem;
+        transition: color 200ms ease-in;
+      }
+
+      a:hover {
+        color: $secondary-color;
+      }
+    }
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .menu-item {
+        display: flex;
+
+
+        a:not(.current-menu-item a) {
+          color: $primary-light-color;
+
+          &:hover {
+            color: $secondary-color;
+          }
+        }
+
+        a:not(.menu-item-22 a) {
+          position: relative;
+          font-size: 1.4rem;
+          text-decoration: none;
+          text-transform: uppercase;
+          transition: color 0.2s ease;
+
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: $secondary-color;
+            transition: width 400ms ease;
+          }
+
+          &:hover::after {
+            width: 100%;
+          }
+        }
+
+      }
+
+      .menu-item-22 a {
+        @include CTAButton(sm);
+      }
+
+      .current-menu-item {
+        a {
+          color: $secondary-color;
+        }
+      }
+    }
+
+    .newsletter {
+      background-color: $secondary-color;
+      color: $primary-light-color;
+      border-radius: 25px;
+      padding: 25px 20px;
+
+      h2 {
+        text-transform: uppercase;
+        font-size: 2.1rem;
+        margin-bottom: 10px;
+        max-width: 240px;
+      }
+
+      .area-input {
+        display: flex;
+
+        input {
+          background-color: $secondary-color-light;
+          color: $primary-light-color;
+          border: none;
+          border-top-left-radius: 10px;
+          border-bottom-left-radius: 10px;
+          height: 50px;
+          width: 100%;
+          padding: 0 10px;
+          font-size: 1.4rem;
+
+          &::placeholder {
+            color: $primary-light-color;
+            padding: 0 10px;
+          }
+        }
+
+        button {
+          border-top-right-radius: 10px;
+          border-bottom-right-radius: 10px;
+          border: none;
+          width: 130px;
+          font-weight: 700;
+          font-size: 1.4rem;
+          color: $primary-color;
+        }
+      }
+    }
+  }
+
+}

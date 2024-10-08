@@ -1,0 +1,15 @@
+.slide-procutos{
+  padding: 35px 0;
+  @include media(lg){
+    padding: 90px 0;
+  }
+  h2{
+    font-size: 31px;
+    text-align: center;
+  }
+  p{
+    margin-top: 10px;
+    font-size: 1.6rem;
+    text-align: center;
+  }
+}
