@@ -1,0 +1,80 @@
+
+.product-item {
+  color: $tertiary-dark-color;
+
+  .product-info {
+    text-align: left;
+
+    h3{
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+    p{
+      font-size: 1.6rem;
+      margin-bottom: 5px;
+    }
+   
+  }
+  .product-overlay{
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+
+    .woocommerce-Price-amount bdi {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    button{
+      background-color: $secondary-color;
+      border: none;
+      color: $primary-light-color;
+      padding: 10px 20px;
+      border-radius:50px;
+      text-transform: uppercase;
+      font-size: 1.6rem;
+    }
+  }
+  
+}
+
+#product-track{
+  overflow: auto;
+  margin-bottom: 30px;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 20px;
+  }
+  
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: $secondary-light-color;
+  }
+  
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: $primary-gray-color;
+    border-radius: 20px;
+  }
+  
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}
+
+#product .splide__slide{
+ padding: 20px;
+}
+.products-list{
+  padding: 20px;
+  border-radius: 20px;
+  display: block;
+  &:hover {
+    box-shadow: 0px -1px 11px 1px #c3c3c3;
+  }
+  margin: 20px 0
+}

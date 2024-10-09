@@ -3,13 +3,61 @@
   @include media(lg){
     padding: 90px 0;
   }
-  h2{
+  .titulo{
     font-size: 31px;
     text-align: center;
   }
-  p{
+  .subtitulo{
     margin-top: 10px;
     font-size: 1.6rem;
     text-align: center;
+  }
+}
+
+#banner{
+  img{
+    display: block;
+    margin: 0 auto;
+  }
+}
+.logistica{
+  h2{
+    font-size: 31px;
+    text-align: center;
+    margin-bottom: 31px;
+    @include media(lg){
+      margin-bottom: 90px;
+    }
+  }
+
+  .grid{
+    margin-bottom: 35px;
+    @include media(lg){
+      margin-bottom: 90px;
+    }
+    .item{
+      display: grid;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+      border-radius: 20px;
+      background-color:$primary-light-color;
+      
+      @include media(lg){
+        grid-template-columns: 1fr 3fr;
+        height: 150px;
+      }
+      img{
+        width: 100px;
+      }
+      h3{
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+      }
+      p{
+        font-size: 1.4rem;
+        line-height: 2rem;
+      }
+    }
   }
 }

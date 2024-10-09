@@ -1,6 +1,12 @@
 <?php
 // Template Name: home
 get_header();
+
+$products_slide = wc_get_products(array('orderby' => 'name', 'order' => 'ASC'));
+
+$data = [];
+$data['slide'] = format_products($products_slide, 'slide');
+
 ?>
 <?php if (have_posts()): while (have_posts()): the_post(); ?>
 
@@ -43,48 +49,44 @@ get_header();
     <section class="slide-procutos">
       <div class="container">
         <div>
-          <h2>Conheça nossas Cestas</h2>
-          <p>Uma seleção especial de produtos para todos os momentos.</p>
+          <h2 class="titulo"><?php echo CFS()->get('titulo_slide_cestas'); ?></h2>
+          <p class="subtitulo"><?php echo CFS()->get('subtitulo_slide_cestas'); ?></p>
+        </div>
+        <section class="splide" id="product">
+          <div class="splide__track">
+            <div class="splide__list">
+              <?php handel_product_list_slide($data['slide']); ?>
+            </div>
+          </div>
+        </section>
+        <div class="my-slider-progress">
+          <div class="my-slider-progress-bar"></div>
         </div>
       </div>
-      <section class="splide" id="product">
-        <div class="splide__track">
-          <ul class="splide__list">
-            <?php
-            $args = array(
-              'post_type' => 'product',
-              'posts_per_page' => -1,
-            );
-
-            $query = new WP_Query($args);
-
-            if ($query->have_posts()) :
-              while ($query->have_posts()) : $query->the_post();
-                global $product;
-
-                $imagem = wp_get_attachment_url($product->get_image_id());
-                $link = get_permalink($product->get_id());
-
-                if ($imagem) :
-            ?>
-                  <li class="splide__slide">
-                    <a href="<?php echo esc_url($link); ?>">
-                      <img src="<?php echo esc_url($imagem); ?>" alt="<?php the_title(); ?>">
-                    </a>
-                  </li>
-            <?php
-                endif;
-              endwhile;
-              wp_reset_postdata();
-            else :
-              echo '<p>Nenhum produto encontrado.</p>';
-            endif;
-            ?>
-          </ul>
-        </div>
-      </section>
     </section>
 
+    <section class="logistica">
+      <div class="container">
+        <h2><?php echo CFS()->get('titulo_logistica'); ?></h2>
+
+        <div class="grid grid-2-md gap-32">
+          <?php $fields = CFS()->get('logistica'); ?>
+          <?php if ($fields) { ?>
+            <?php foreach ($fields as $field) { ?>
+              <div class="item">
+                <div>
+                  <img src="<?php echo esc_url($field['imagem']); ?>" alt="" srcset="">
+                </div>
+                <div>
+                  <h3><?php echo esc_html($field['titulo']); ?></h3>
+                  <p><?php echo esc_html($field['paragrafo']); ?></p>
+                </div>
+              </div>
+            <?php } ?>
+          <?php } ?>
+        </div>
+      </div>
+    </section>
 <?php endwhile;
 else: endif; ?>
 

@@ -179,3 +179,8 @@ $grid-breakpoints: (
     padding: 10px 15px;
   }
 }
+
+.item-center{
+  display: flex;
+  justify-content: center;
+}
