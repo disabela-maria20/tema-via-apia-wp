@@ -1,0 +1,122 @@
+.doe-cesta-via-apia {
+  padding: 45px 0;
+
+  @include media(lg) {
+    padding: 90px 0;
+  }
+
+  h1 {
+    font-size: 3.1rem;
+    text-align: center;
+    margin-bottom: 15px;
+
+    @include media(lg) {
+      font-size: 3.5rem;
+    }
+  }
+
+  div>p {
+    font-size: 1.6rem;
+    margin-bottom: 21px;
+    text-align: center;
+
+  }
+
+  .card {
+    padding-top: 35px;
+
+    .card-item {
+      border-bottom: 1px solid $secondary-light-color;
+      padding: 35px 0;
+
+      @include media(lg) {
+        display: grid;
+        grid-template-columns: 1fr 1fr 2fr;
+        gap: 20px;
+        align-items: center;
+      }
+
+      img {
+        display: block;
+        margin: 0 auto;
+      }
+
+      .associação {
+
+        h3 {
+          color: $primary-color;
+          font-size: 2.8rem;
+          text-align: center;
+          margin: 20px 0;
+
+          @include media(lg) {
+            text-align: left;
+          }
+        }
+
+        p {
+          @include media(lg) {
+            text-align: left;
+          }
+        }
+      }
+
+      .cestas {
+        padding: 20px;
+        border-radius: 20px;
+        display: block;
+        background-color: #fff;
+
+        &:hover {
+          box-shadow: 0px -1px 11px 1px #c3c3c3;
+        }
+
+        margin: 20px 0;
+
+        @include media(lg) {
+          display: flex;
+        }
+
+        h3 {
+          font-size: 2.8rem;
+          text-align: center;
+
+          @include media(lg) {
+            text-align: left;
+          }
+        }
+
+        p {
+          padding-top: 15px;
+
+          @include media(lg) {
+            text-align: left;
+          }
+        }
+
+        .item-center {
+          justify-content: initial;
+
+          .doar-cesta-link {
+            background-color: $primary-color;
+            border: none;
+            color: $primary-light-color;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            font-size: 1.6rem;
+            transition: background 200ms ease-in;
+            cursor: pointer;
+
+            &:hover {
+              background-color: $primary-color-dark;
+            }
+          }
+        }
+
+      }
+
+    }
+
+  }
+}

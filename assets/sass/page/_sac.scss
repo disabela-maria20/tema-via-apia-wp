@@ -1,0 +1,73 @@
+.sac {
+  padding: 45px 0;
+
+  @include media(lg) {
+    padding: 90px 0;
+  }
+
+  .sac-via-apia {
+    background: url('../images/fb4933ce-3340-41f2-bb01-aed3c4e89e13.png');
+    border-radius: 20px;
+    color: $primary-light-color;
+    padding: 20px;
+
+    @include media(lg){
+      padding: 45px;
+    }
+
+    h1{
+      font-size: 3.1rem;
+      margin-bottom: 15px;
+  
+      @include media(lg) {
+        font-size: 3.5rem;
+      }
+    }
+    p{
+      font-size: 1.4rem;
+    }
+    .grid {
+      align-items: center;
+
+      form{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        label {
+          input {
+            @include Input('vermelho');
+          }
+          textarea{
+            @include Input('vermelho');
+            padding: 20px;
+            height: 200px;
+          }
+        }
+      }
+
+      
+    }
+
+    .area-btn{
+      display: flex;
+      justify-content: end;
+
+      button{
+        background-color: $primary-light-color;
+        border: none;
+        font-size: 1.6rem;
+        padding: 10px 20px;
+        color: $primary-color;   
+        font-weight: 700;
+        text-transform: uppercase;
+        border-radius: 20px;
+        transition: all 200ms ease-in;
+        &:hover, &:focus, &:active{
+          background-color: $secondary-color-gradient;
+          color: $primary-light-color;
+
+        }
+      }
+    }
+  }
+}

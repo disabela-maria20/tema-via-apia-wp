@@ -18,23 +18,23 @@ function format_products($products, $img_size = 'medium')
 
 function handel_product_list($products)
 { ?>
-  <ul class="products-list">
-    <?php foreach ($products as $product) { ?>
-      <li class="product-item">
-        <a href="<?= $product['link']; ?>">
-          <div class="product-info">
-            <img src="<?= $product['img']; ?>" alt="<?= $product['name']; ?>">
-            <h2><?= $product['name']; ?> - <span><?= $product['price']; ?></span></h2>
-          </div>
-          <div class="product-overlay">
-            <span class="btn-link">Ver Mais</span>
-          </div>
-        </a>
-      </li>
-    <?php } ?>
-  </ul>
+  <?php foreach ($products as $product) { ?>
+    <a class="product-item" href="<?= esc_url($product['link']); ?>">
+      <div class="products-list">
+        <div class="product-info">
+          <img src="<?= esc_url($product['img']); ?>" alt="<?= esc_attr($product['name']); ?>">
+          <h3><?= esc_html($product['name']); ?></h3>
+          <p class="product-categories"><?= esc_html($product['categories']); ?></p> 
+        </div>
+        <div class="product-overlay">
+          <?= $product['price']; ?>
+          <button class="btn-link">Ver Mais</button>
+        </div>
+      </div>
+    </a>
+  <?php } ?>
 <?php
-} // Fecha a função handel
+} 
 
 function handel_product_list_slide($products)
 { ?>

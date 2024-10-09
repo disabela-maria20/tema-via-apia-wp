@@ -184,3 +184,23 @@ $grid-breakpoints: (
   display: flex;
   justify-content: center;
 }
+
+@mixin Input($bg){
+  height: 56px;
+  width: 100%;
+  border: none;
+  border-radius: 20px;
+  color: $primary-light-color;
+  font-size: 1.4rem;
+  padding: 0 20px;
+  &::placeholder{
+    color: $primary-light-color;
+  }
+  @if ($bg =='vermelho') {
+    background-color: $secondary-color-gradient;
+  }
+
+  @else if($bg =='cinza') {
+    background-color: $primary-gray-color;
+  }
+}
