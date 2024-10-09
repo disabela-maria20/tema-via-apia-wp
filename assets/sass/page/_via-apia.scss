@@ -70,14 +70,17 @@
       color: $primary-light-color;
       padding: 20px;
       border-radius: 20px;
-
+      @include media(lg){
+        padding: 30px;
+      }
       h3 {
         font-size: 2.1rem;
         margin-bottom: 20px;
       }
 
       p {
-        font-size: 1.4;
+        font-size: 1.6rem;
+        margin: 0;
       }
     }
   }

@@ -3,6 +3,10 @@
 include(get_template_directory() . '/inc/product-list.php');
 include(get_template_directory() . "/api/banner.php");
 
+function handel_add_woocommerce_support() {
+  add_theme_support('woocommerce');
+}
+add_action('after_setup_theme', 'handel_add_woocommerce_support');
 
 function wpb_image_editor_default_to_gd($editors){
   $gd_editor = 'WP_Image_Editor_GD';
