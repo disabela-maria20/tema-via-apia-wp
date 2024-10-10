@@ -2,7 +2,7 @@
 // Template Name: home
 get_header();
 
-$products_slide = wc_get_products(array('orderby' => 'name', 'order' => 'ASC'));
+$products_slide = wc_get_products(array('orderby' => 'name', 'order' => 'ASC', 'tag' => 'slide'));
 
 $data = [];
 $data['slide'] = format_products($products_slide, 'slide');
@@ -59,9 +59,6 @@ $data['slide'] = format_products($products_slide, 'slide');
             </div>
           </div>
         </section>
-        <div class="my-slider-progress">
-          <div class="my-slider-progress-bar"></div>
-        </div>
       </div>
     </section>
 
