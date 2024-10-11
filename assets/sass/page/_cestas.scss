@@ -27,7 +27,7 @@
   background-size: cover;
   background-size: cover !important;
   background-repeat: no-repeat !important;
-
+  background-position: center !important;
   @include media(lg) {
     padding: 90px 0;
   }
