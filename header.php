@@ -13,7 +13,9 @@
     <div class="container">
       <div class="area_menu">
         <div class="area_logo">
-          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/via-apia-logo.png" alt="logo" width="103" height="73">
+          <a href="/">
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/via-apia-logo.png" alt="logo" width="103" height="73">
+          </a>
           <div class="menu_burguer">
             <span></span>
             <span></span>
