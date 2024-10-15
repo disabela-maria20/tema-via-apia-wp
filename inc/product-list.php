@@ -45,7 +45,7 @@ function handel_product_list_slide($products)
           <div class="product-info">
             <img src="<?= esc_url($product['img']); ?>" alt="<?= esc_attr($product['name']); ?>">
             <h3><?= esc_html($product['name']); ?></h3>
-            <p class="product-categories"><?= esc_html($product['categories']); ?></p> <!-- Exibe categorias sem links -->
+            <p class="product-categories"><?= esc_html($product['categories']); ?></p> 
           </div>
           <div class="product-overlay">
             <?= $product['price']; ?>

@@ -34,13 +34,11 @@ function format_single_product($id, $img_size = 'medium')
 ?>
 
 <?php
-// Obtém a categoria do produto
 $product_id = get_the_ID();
 $product = wc_get_product($product_id);
 $categories = $product->get_category_ids();
 $category_image_url = '';
 
-// Se o produto tiver categorias, obtém a imagem da primeira categoria
 if (!empty($categories)) {
   $category = get_term($categories[0], 'product_cat');
   $thumbnail_id = get_term_meta($category->term_id, 'thumbnail_id', true);
@@ -53,10 +51,7 @@ if (!empty($categories)) {
     <?php if (have_posts()) : ?>
       <?php while (have_posts()) : the_post(); ?>
         <?php
-        // Chama a função format_single_product e armazena o resultado
         $produto = format_single_product(get_the_ID());
-
-        // Verifica se $produto não é nulo antes de continuar
         if ($produto):
         ?>
           <main class="produto">
@@ -104,13 +99,9 @@ if (!empty($categories)) {
               </div>
             </div>
           </main>
+          <!-- Ajustando o estilo da linha horizontal com base na categoria -->
+          <hr style="border: 1px solid <?= $produto['categories'] = 'cesta-de-natal' ? '#8C0000': '#ccc'; ?>;">
           <section class="descricao">
-            <div class="container">
-              <?php $fields = CFS()->get('item'); ?>
-              <?php if ($fields) { ?>
-                <h2>Descrição</h2>
-              <?php } ?>
-            </div>
             <div class="grid">
               <?php $fields = CFS()->get('item'); ?>
               <ul class="item">
@@ -122,7 +113,6 @@ if (!empty($categories)) {
               </ul>
               <p><?php echo CFS()->get('informacao'); ?></p>
             </div>
-
           </section>
         <?php else: ?>
           <p>Produto não encontrado.</p>

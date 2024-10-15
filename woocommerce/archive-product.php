@@ -11,7 +11,6 @@ if (have_posts()) {
 $data = [];
 $data['products'] = format_products($products);
 
-// Obtém a categoria atual
 $category = get_queried_object();
 $category_description = '';
 $category_image_url = '';
@@ -32,13 +31,12 @@ if ($category instanceof WP_Term) {
   <div class="container">
     <?php if (apply_filters('woocommerce_show_page_title', true)) : ?>
       <h1><?php woocommerce_page_title(); ?></h1>
-      <div class="descricao">
-        <?php if (!empty($category_description)) : ?>
+      <?php if (!empty($category_description)) : ?>
+        <div class="descricao">
           <?php echo $category_description; ?>
-        <?php endif; ?>
-      </div>
+        </div>
+      <?php endif; ?>
     <?php endif; ?>
-
     <?php if (!empty($data['products'])) { ?>
       <div class="grid grid-2-sm grid-3-lg gap-32">
         <?php handel_product_list($data['products']); ?>

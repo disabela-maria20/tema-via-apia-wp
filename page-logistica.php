@@ -8,11 +8,11 @@ get_header();
         <h1><?php echo CFS()->get('logistica-titulo'); ?></h1>
 
         <section class="area-logistica">
-          <ul>
+          <ul class="grid grid-2 gap-32">
             <?php $fields = CFS()->get('logistica'); ?>
             <?php if ($fields) { ?>
               <?php foreach ($fields as $field) { ?>
-                <li class="grid">
+                <li class="flex">
                   <img src="<?php echo esc_html($field['imagem-logistica']); ?>" alt="">
                   <div>
                     <h3><?php echo esc_html($field['titulo-logistica-card']); ?></h3>
