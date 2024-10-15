@@ -22,7 +22,7 @@ get_header();
                   <img src="<?php echo esc_url($field['imagem']); ?>" alt="<?php echo esc_attr($field['titulo']); ?>">
                 </div>
                 <div class="associação">
-                  <h3><?php echo esc_html($field['titulo']); ?></h3>
+                  <h2><?php echo esc_html($field['titulo']); ?></h2>
                   <p><?php echo esc_html($field['texto']); ?></p>
                 </div>
                 <div class="cestas">
@@ -33,9 +33,11 @@ get_header();
                     <h3><?php echo esc_html($field['titulo_cesta']); ?></h3>
                     <p><?php echo esc_html($field['valor-cesta']); ?></p>
                     <div  class="item-center">
-                      <a href="#" class="doar-cesta-link">Doar Cesta</a>
+                      <a href="/doe-cesta/doar/" 
+                        data-titulo="<?php  echo esc_html($field['titulo']);?>" 
+                        data-valor="<?php echo esc_html($field['valor-cesta']);?>"
+                        class="doar-cesta-link">Doar Cesta</a>
                     </div>
-
                   </div>
                 </div>
               </div>
