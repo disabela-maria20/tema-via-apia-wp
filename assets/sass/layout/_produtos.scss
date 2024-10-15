@@ -46,29 +46,7 @@
 }
 
 #product-track{
-  overflow: auto;
-  margin-bottom: 30px;
-
-  &::-webkit-scrollbar {
-    width: 5px;
-    border-radius: 20px;
-  }
-  
-  /* Track */
-  &::-webkit-scrollbar-track {
-    background: $secondary-light-color;
-  }
-  
-  /* Handle */
-  &::-webkit-scrollbar-thumb {
-    background: $primary-gray-color;
-    border-radius: 20px;
-  }
-  
-  /* Handle on hover */
-  &::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
+  margin-bottom: 30px; 
 }
 
 #product .splide__slide{

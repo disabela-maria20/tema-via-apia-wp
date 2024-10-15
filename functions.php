@@ -46,3 +46,20 @@ function register_my_menu()
 }
 add_action('init', 'register_my_menu');
 
+function excluir_cestas_de_natal_da_loja($query) {
+  if (!is_admin() && $query->is_main_query() && is_shop()) {
+    $categoria_excluida = 'cestas-de-natal';
+    $tax_query = array(
+      array(
+        'taxonomy' => 'product_cat',
+        'field'    => 'slug', 
+        'terms'    => $categoria_excluida,
+        'operator' => 'NOT IN', 
+      ),
+    );
+
+    $query->set('tax_query', $tax_query);
+  }
+}
+add_action('pre_get_posts', 'excluir_cestas_de_natal_da_loja');
+

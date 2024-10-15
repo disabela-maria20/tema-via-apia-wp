@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Inicializa o carrossel de banners se o elemento #banner existir
   const bannerElement = document.querySelector('#banner');
   if (bannerElement) {
-    new Splide('#banner').mount();
+    new Splide('#banner', ).mount();
   }
 
   // Inicializa o carrossel de produtos se o elemento #product existir
@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', function () {
       type: 'loop',
       trimSpace: false,
       gap: '20px',
-      arrows: false,
-      pagination: false,
+      arrows: true,
+      pagination: true,
       lazyLoad: 'nearby',
       breakpoints: {
         640: {
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (comentariosElement) {
     console.log(comentariosElement);
     
-    new Splide('#comentarios', { // Passa as opções aqui
+    new Splide('#comentarios', {
       perPage: 2,
       gap: '20px',
       breakpoints: {
@@ -59,6 +59,6 @@ document.addEventListener('DOMContentLoaded', function () {
           perPage: 2,
         },
       },
-    }).mount(); // Chama mount() sem argumentos
+    }).mount();
   }
 });
