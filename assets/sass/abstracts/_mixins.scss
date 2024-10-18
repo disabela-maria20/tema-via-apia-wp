@@ -198,9 +198,16 @@ $grid-breakpoints: (
   }
   @if ($bg =='vermelho') {
     background-color: $secondary-color-gradient;
+    &::placeholder{
+      color: $primary-light-color;
+    }
   }
 
   @else if($bg =='cinza') {
-    background-color: $primary-gray-color;
+    background-color:$primary-light-color;
+    color: $secondary-gray-color;
+    &::placeholder{
+      color:  $secondary-gray-color;
+    }
   }
 }

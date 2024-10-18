@@ -15,7 +15,7 @@
     }
   }
 
-  div>p {
+  .descricao p {
     font-size: 1.6rem;
     margin-bottom: 21px;
     text-align: center;
@@ -41,19 +41,23 @@
         margin: 0 auto;
       }
 
-      .associação {
+      .associacao {
 
-        h2{
+        h2 {
           color: $primary-color;
           font-size: 2.8rem;
           text-align: center;
-          margin-bottom: 10px;
+          padding: 25px 0;
           @include media(lg) {
+            padding: 0;
             text-align: left;
           }
         }
 
         p {
+          font-size: 1.6rem;
+          line-height: 2rem;
+          text-align: center;
           @include media(lg) {
             text-align: left;
           }
@@ -71,9 +75,10 @@
           box-shadow: 0px -1px 11px 1px #c3c3c3;
         }
 
-        img{
+        img {
           max-width: 290px;
         }
+
         @include media(lg) {
           display: flex;
         }
@@ -89,6 +94,9 @@
 
         p {
           padding-top: 15px;
+          font-size: 1.6rem;
+          margin-bottom: 15px;
+          text-align: center;
 
           @include media(lg) {
             text-align: left;
@@ -96,7 +104,9 @@
         }
 
         .item-center {
-          justify-content: initial;
+          @include media(lg) {
+            justify-content: initial;
+          }
 
           .doar-cesta-link {
             background-color: $primary-color;
@@ -119,5 +129,141 @@
 
     }
 
+  }
+
+}
+
+.doar-via-apia {
+  padding: 45px 0;
+
+  @include media(lg) {
+    padding: 90px 0;
+  }
+
+  .doar {
+    padding-bottom: 45px;
+    @include media(lg){
+      padding-bottom: 0;
+    }
+    .grid {
+      gap: 35px;
+
+      @include media(lg) {
+        grid-template-columns: 1fr .5fr 1fr;
+        padding: 90px 0; 
+      }
+      .img-cesta {
+        img {
+          width: 100%;
+          border-radius: 20px;
+        }
+      }
+
+      .dados-cesta {
+        h3 {
+          font-size: 2.8rem;
+          text-align: center;
+
+          @include media(lg) {
+            text-align: left;
+          }
+        }
+
+        p {
+          color: $primary-color;
+          font-size: 1.8rem;
+          line-height: 2rem;
+          font-weight: 700;
+          text-align: center;
+          @include media(lg) {
+            text-align: left;
+          }
+        }
+      }
+
+      .itens-cesta {
+        h2 {
+          font-size: 2.8rem;
+          margin-bottom: 10px;
+        }
+
+        ul {
+          li {
+            font-size: 1.6rem;
+            line-height: 2rem;
+
+            @include media(lg) {
+              text-align: left;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+hr.divisor {
+  border: 1px solid $primary-gray-color;
+}
+
+.form-doar {
+  padding-top: 45px;
+
+  @include media(lg) {
+    padding-top: 90px;
+  }
+
+  h2 {
+    font-size: 2.8rem;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .form-area {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    padding: 35px 0;
+
+    .form-input {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      @include media(lg) {
+        display: grid;
+      }
+
+    }
+  }
+  label{
+    .error{
+      padding: 14px;
+      display: block;
+      font-size: 1.2rem;
+      color: #531204;
+    }
+  }
+  input,
+  select {
+    @include Input('cinza')
+  }
+}
+
+.area-btn{
+  button{
+    background-color: $primary-color-gradient;
+    border: none;
+    color: $primary-light-color;
+    padding: 10px 20px;
+    border-radius:50px;
+    text-transform: uppercase;
+    font-size: 1.6rem;
+    transition: background 200ms ease-in;
+    cursor: pointer;
+    &:hover{
+      background-color: $primary-color-dark;
+    }
   }
 }
