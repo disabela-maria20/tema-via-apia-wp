@@ -1,11 +1,11 @@
 .rodape {
   background: linear-gradient(90deg, $primary-color-gradient, $secondary-color-gradient);
   padding: 20px 0;
-  position: relative;
   z-index: 1;
   padding: 35px 0;
   overflow: hidden;
   scrollbar-width: none;
+  position: relative;
 
   @include media(lg) {
     padding: 90px 0;
@@ -184,9 +184,9 @@
   }
 }
 
-.rodape{
-  .menu{
-    .sub-menu{
+.rodape {
+  .menu {
+    .sub-menu {
       display: none;
     }
   }

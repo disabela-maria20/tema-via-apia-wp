@@ -46,7 +46,7 @@ if (!empty($categories)) {
 }
 ?>
 
-<section style="background: url(<?php echo esc_url($category_image_url); ?>);">
+<section class="bg-categoria" style="background: url(<?php echo esc_url($category_image_url); ?>);">
   <div class="container">
     <?php if (have_posts()) : ?>
       <?php while (have_posts()) : the_post(); ?>
@@ -61,9 +61,9 @@ if (!empty($categories)) {
                   <img data-gallery="list" src="<?= esc_url($img); ?>" alt="<?= esc_attr($produto['name']); ?>">
                 <?php } ?>
               </div>
-              <div class="produto-gallery-main">
+              <!-- <div class="produto-gallery-main">
                 <img data-gallery="main" src="<?= esc_url($produto['img']); ?>" alt="<?= esc_attr($produto['name']); ?>">
-              </div>
+              </div> -->
             </div>
 
             <div class="product-detail">
