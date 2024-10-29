@@ -24,7 +24,7 @@ get_header();
                 </label>
               </div>
               <label for="telefone_whatsapp">
-                <input type="text" id="telefone_whatsapp" v-model="telefone" placeholder="Telefone/Whatsapp">
+                <the-mask :mask="['(##) #####-####']" type="text" id="telefone_whatsapp" v-model="telefone" placeholder="Telefone/Whatsapp">
               </label>
               <label for="mensagem">
                 <textarea id="mensagem" v-model="mensagem" placeholder="Mensagem"></textarea>
@@ -66,6 +66,8 @@ else: ?>
 <?php endif; ?>
 
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/lib/vue@2.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/assets/js/lib/vue-the-mask.min.js"></script>
+
 <script>
   new Vue({
     el: '#sac-form',
@@ -99,7 +101,7 @@ else: ?>
         if (!this.validateForm()) return;
 
         try {
-          const response = await fetch('https://crm.rdstation.com/api/v1/contacts?token=66b0d0105e54ad0022d2ba27', {
+          const response = await fetch('/wp-json/contato_sac/v1/enviar-contato', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

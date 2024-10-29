@@ -2,6 +2,8 @@
 
 include(get_template_directory() . '/inc/product-list.php');
 include(get_template_directory() . "/api/banner.php");
+include(get_template_directory() . "/api/sac.php");
+include(get_template_directory() . "/api/newslleter.php");
 
 function handel_add_woocommerce_support()
 {
@@ -68,74 +70,4 @@ function excluir_cestas_de_natal_da_loja($query)
 }
 add_action('pre_get_posts', 'excluir_cestas_de_natal_da_loja');
 
-// Adiciona um endpoint customizado para a inscrição na newsletter
-add_action('rest_api_init', function () {
-  register_rest_route('newsletter/v1', '/subscribe', [
-    'methods' => 'POST',
-    'callback' => 'newsletter_subscribe',
-    'permission_callback' => '__return_true'
-  ]);
-});
 
-// Endpoint customizado para inscrição na newsletter com o RD Station
-add_action('rest_api_init', function () {
-  register_rest_route('newsletter/v1', '/subscribe', [
-    'methods' => 'POST',
-    'callback' => 'newsletter_subscribe',
-    'permission_callback' => '__return_true'
-  ]);
-});
-
-function enviar_contato_rd_station($email)
-{
-  $url = 'https://crm.rdstation.com/api/v1/contacts?token=66b0d0105e54ad0022d2ba27';
-
-  $body = json_encode([
-    'contact' => [
-      'emails' => [
-        ['email' => $email]
-      ]
-    ]
-  ]);
-
-  $response = wp_remote_post($url, [
-    'method'    => 'POST',
-    'headers'   => [
-      'Content-Type' => 'application/json',
-      'Accept'       => 'application/json'
-    ],
-    'body'      => $body,
-  ]);
-
-  if (is_wp_error($response)) {
-    return ['success' => false, 'message' => 'Erro ao conectar com o RD Station'];
-  }
-
-  $status_code = wp_remote_retrieve_response_code($response);
-  $response_body = wp_remote_retrieve_body($response);
-
-  if ($status_code === 200) {
-    return ['success' => true, 'message' => 'Contato enviado com sucesso!'];
-  } else {
-    return ['success' => false, 'message' => 'Falha ao enviar o contato: ' . $response_body];
-  }
-}
-add_action('rest_api_init', function () {
-  register_rest_route('api/v1', '/enviar-contato', [
-      'methods' => 'POST',
-      'callback' => 'enviar_contato_rest',
-      'permission_callback' => '__return_true', // Ajuste a permissão conforme necessário
-  ]);
-});
-
-function enviar_contato_rest($request) {
-  $email = sanitize_email($request->get_param('email'));
-
-  if (empty($email)) {
-      return new WP_Error('no_email', 'E-mail é obrigatório', ['status' => 400]);
-  }
-
-  $result = enviar_contato_rd_station($email);
-
-  return rest_ensure_response($result);
-}
