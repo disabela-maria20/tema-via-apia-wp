@@ -141,7 +141,7 @@ get_header();
   else: endif; ?>
 </div>
 
-
+<?php get_footer(); ?>
 <script>
   new Vue({
     el: '#app',
@@ -269,5 +269,3 @@ get_header();
     }
   });
 </script>
-
-<?php get_footer(); ?>

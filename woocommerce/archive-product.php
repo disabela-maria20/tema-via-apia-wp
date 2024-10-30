@@ -25,7 +25,7 @@ if ($category instanceof WP_Term) {
 
 ?>
 
-<main class="cestas-via-apia" style="background: <?php echo !empty($category_image_url) ? 'url(' . esc_url($category_image_url) . ')' : 'none'; ?>;">
+<main class="cestas-via-apia bg-categoria" style="background: <?php echo !empty($category_image_url) ? 'url(' . esc_url($category_image_url) . ')' : 'none'; ?>;">
   <div class="container">
     <?php if (apply_filters('woocommerce_show_page_title', true)) : ?>
       <h1><?php woocommerce_page_title(); ?></h1>
@@ -40,12 +40,16 @@ if ($category instanceof WP_Term) {
       <div class="grid grid-2-sm grid-3-lg gap-32">
         <?php handel_product_list($data['products']); ?>
       </div>
+      <div class="paginacao">
+        <?= get_the_posts_pagination(); ?>
+      </div>
+      
     <?php } else { ?>
       <p class="sem-resultados">Nenhum resultado para a sua busca.</p>
     <?php } ?>
   </div>
 
-  <?= get_the_posts_pagination(); ?>
+  
 </main>
 
 <?php get_footer(); ?>

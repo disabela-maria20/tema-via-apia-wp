@@ -16,7 +16,7 @@ get_header();
             </div>
           </div>
           <div class="item-center">
-            <a href=""><?php echo CFS()->get('cta_baixar-via-apia'); ?></a>
+            <a href="<?php echo CFS()->get('cta_link'); ?>" download><?php echo CFS()->get('cta_baixar-via-apia'); ?></a>
           </div>
         </div>
       </section>
@@ -38,7 +38,7 @@ get_header();
             <?php } ?>
           </div>
           <div class="item-center">
-            <a href="http://"><?php echo CFS()->get('cta-vendas-via-apia'); ?></a>
+            <a c><?php echo CFS()->get('cta-vendas-via-apia'); ?></a>
           </div>
         </div>
       </section>

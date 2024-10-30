@@ -1,4 +1,5 @@
 <?php
+
 // Endpoint customizado para inscrição na newsletter com o RD Station
 add_action('rest_api_init', function () {
   register_rest_route('newsletter/v1', '/subscribe', [
@@ -11,12 +12,12 @@ add_action('rest_api_init', function () {
 function enviar_contato_rd_station($email)
 {
   $url = 'https://crm.rdstation.com/api/v1/contacts?token=' . RD_STATION_TOKEN;
-
   $body = json_encode([
     'contact' => [
       'emails' => [
-        ['email' => $email]
-      ]
+        ['email' => $email],
+      ],
+      'name' => 'newsletter'
     ]
   ]);
 
@@ -62,3 +63,4 @@ function enviar_contato_rest($request)
 
   return rest_ensure_response($result);
 }
+

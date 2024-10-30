@@ -15,11 +15,11 @@ get_header();
             <form @submit.prevent="submitForm">
               <div class="grid grid-2 gap-10">
                 <label for="nome">
-                  <input type="text" id="nome" v-model="nome" placeholder="Nome" :class="{ 'input-error': errors.nome }" required>
+                  <input type="text" id="nome" v-model="nome" placeholder="Nome" :class="{ 'input-error': errors.nome }">
                   <p v-if="errors.nome" class="error-message">{{ errors.nome }}</p>
                 </label>
                 <label for="email">
-                  <input type="email" id="email" v-model="email" placeholder="E-mail" :class="{ 'input-error': errors.email }" required>
+                  <input type="email" id="email" v-model="email" placeholder="E-mail" :class="{ 'input-error': errors.email }">
                   <p v-if="errors.email" class="error-message">{{ errors.email }}</p>
                 </label>
               </div>
@@ -82,6 +82,9 @@ else: ?>
       };
     },
     methods: {
+      cleanPhoneNumber(phone) {
+        return phone.replace(/\D/g, '');
+      },
       validateForm() {
         this.errors = {};
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -100,25 +103,19 @@ else: ?>
       async submitForm() {
         if (!this.validateForm()) return;
 
+        const payload = {
+          email: this.email,
+          name: this.nome,
+          phone: this.cleanPhoneNumber(this.telefone),
+          title: this.mensagem
+        }
         try {
-          const response = await fetch('/wp-json/contato_sac/v1/enviar-contato', {
+          const response = await fetch('/wp-json/sac/v1/subscribe', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-              contact: {
-                emails: [{
-                  email: this.email
-                }],
-                phones: [{
-                  phone: this.telefone,
-                  type: 'Telefone/Whatsapp'
-                }],
-                title: this.mensagem,
-                name: this.nome
-              }
-            })
+            body: JSON.stringify(payload)
           });
 
           if (response.ok) {

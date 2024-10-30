@@ -1,21 +1,29 @@
 <?php
-function enviar_contato_sac_rd_station($email, $telefone, $mensagem, $nome)
+
+// Endpoint customizado para inscrição no SAC com o RD Station
+add_action('rest_api_init', function () {
+  register_rest_route('sac/v1', '/subscribe', [
+    'methods' => 'POST',
+    'callback' => 'sac_enviar_contato_rest', // Nome da função alterado
+    'permission_callback' => '__return_true',
+  ]);
+});
+
+function sac_enviar_contato_rd_station($email, $name, $phone, $title) 
 {
   $url = 'https://crm.rdstation.com/api/v1/contacts?token=' . RD_STATION_TOKEN;
 
   $body = json_encode([
     'contact' => [
       'emails' => [
-        ['email' => $email]
+        ['email' => $email],
       ],
-      'phones' => [
-        [
-          'phone' => $telefone,
-          'type'  => 'Telefone/Whatsapp'
-        ]
-      ],
-      'title' => $mensagem,
-      'name'  => $nome
+      'name' => $name,
+      'mobile_phone' => $phone,
+      // 'phones' => [
+      //   ["phone" => $phone, "type" => "whatsapp"] // Corrigido para "whatsapp"
+      // ], 
+      'title' => $title
     ]
   ]);
 
@@ -29,7 +37,7 @@ function enviar_contato_sac_rd_station($email, $telefone, $mensagem, $nome)
   ]);
 
   if (is_wp_error($response)) {
-    return ['success' => false, 'message' => 'Erro ao conectar com o SAC'];
+    return ['success' => false, 'message' => 'Erro ao conectar com o RD Station'];
   }
 
   $status_code = wp_remote_retrieve_response_code($response);
@@ -41,22 +49,18 @@ function enviar_contato_sac_rd_station($email, $telefone, $mensagem, $nome)
     return ['success' => false, 'message' => 'Falha ao enviar o contato: ' . $response_body];
   }
 }
-add_action('rest_api_init', function () {
-  register_rest_route('contato_sac/v1', '/enviar-contato', [
-    'methods' => 'POST',
-    'callback' => 'handle_contato_sac',
-    'permission_callback' => '__return_true'
-  ]);
-});
 
-function handle_contato_sac($request)
+function sac_enviar_contato_rest($request) 
 {
-  $params = $request->get_json_params();
+  $email = sanitize_email($request->get_param('email'));
+  $name = sanitize_text_field($request->get_param('name'));
+  $phone = sanitize_text_field($request->get_param('mobile_phone'));
+  $title = sanitize_text_field($request->get_param('title'));
+  if (empty($email)) {
+    return new WP_Error('no_email', 'E-mail é obrigatório', ['status' => 400]);
+  }
 
-  $email = sanitize_email($params['email']);
-  $telefone = sanitize_text_field($params['telefone']);
-  $mensagem = sanitize_textarea_field($params['mensagem']);
-  $nome = sanitize_text_field($params['nome']);
+  $result = sac_enviar_contato_rd_station($email, $name, $phone, $title); 
 
-  return enviar_contato_sac_rd_station($email, $telefone, $mensagem, $nome);
+  return rest_ensure_response($result);
 }
