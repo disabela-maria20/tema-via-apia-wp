@@ -1,8 +1,9 @@
 .page-personalizadas {
   padding: 45px 0;
+
   .grid {
     align-items: center;
-    
+
     h1 {
       font-size: 2.8rem;
       margin-bottom: 10px;
@@ -31,17 +32,40 @@
   }
 
   form {
-    .lista {
-      @include media(lg){
-     column-count: 3;   
+    button {
+      background-color: $secondary-color;
+      border: none;
+      color: $primary-light-color;
+      padding: 10px 20px;
+      border-radius: 50px;
+      text-transform: uppercase;
+      font-size: 1.6rem;
+      transition: background 200ms ease-in;
+      cursor: pointer;
+      margin: 34px 0;
+      &:hover {
+        background-color: $primary-color-dark;
       }
-      
     }
+    .lista {
+      @include media(lg) {
+        column-count: 3;
+      }
+
+      .list {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+
+    }
+
     label {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 5px;
-      cursor: pointer;
+      flex-direction: column;
+
       input[type="checkbox"] {
         appearance: none;
         position: relative;
@@ -51,6 +75,7 @@
         border: .125rem solid #ccc;
         border-radius: 50px;
         cursor: pointer;
+
         &::before {
           content: "";
           position: absolute;
@@ -72,16 +97,19 @@
         }
       }
 
-      span {
+      >span {
         font-size: 1.4rem;
         margin: 10px 0;
-        
+        display: block;
+
         @include media(lg) {
           font-size: 1.6rem;
           line-height: 2.2rem;
         }
       }
+      
     }
+
     .area-input {
       display: flex;
       flex-direction: column;
@@ -91,6 +119,8 @@
       input[type="email"] {
         @include Input('cinza');
       }
+
+     
     }
   }
 }

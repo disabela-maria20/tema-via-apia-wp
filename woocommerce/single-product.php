@@ -1,5 +1,4 @@
 <?php get_header(); ?>
-
 <?php
 // Função para formatar os dados do produto
 function format_single_product($product_id)
@@ -146,7 +145,7 @@ if (!empty($categories)) {
             <h2>Entre em contato para um orçamento</h2>
             <form @submit.prevent="comprar">
               <div class="grid grid-2 gap-10">
-                <label for="nome">
+                <label for="nome" >
                   <input type="text" placeholder="Nome" id="nome" v-model="form.nome">
                   <span v-if="errors.nome" class="error">{{ errors.nome }}</span>
                 </label>
@@ -205,9 +204,10 @@ if (!empty($categories)) {
     </div>
   </section>
 </section>
-<?php wp_footer(); ?>
-<script src="<?php echo get_template_directory_uri(); ?>/assets/js/lib/vue@2.js"></script>
+
+<?php get_footer(); ?>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/lib/vue-the-mask.min.js"></script>
+
 <script>
   new Vue({
     el: "#app",
@@ -223,10 +223,18 @@ if (!empty($categories)) {
           cpfCnpj: '',
           quantidade: null,
           name: <?php echo json_encode($produto['name']); ?>,
-          price: <?php echo json_encode(strip_tags($produto['price'])); ?>
+          price: null
         },
         errors: {}
       };
+    },
+    mounted() {
+      const priceElement = document.querySelector('.product-price');
+      if (priceElement) {
+        const priceText = priceElement.textContent.trim();
+        const numericPrice = parseFloat(priceText.replace(/[^\d,]/g, '').replace(',', '.'));
+        this.form.price = numericPrice;
+      }
     },
     methods: {
       validateForm() {
@@ -239,31 +247,38 @@ if (!empty($categories)) {
         return Object.keys(this.errors).length === 0;
       },
       closeModal() {
-        this.isModalOpen = false;
         this.modalMessage = null;
+        this.isModalOpen = false;
       },
       openModal() {
         this.isModalOpen = true;
       },
       async comprar() {
-        if (!this.validateForm()) return;
+        if(!this.validateForm()) return
         this.isLoading = true;
         const data = {
-          email: this.form.email,
-          phones: this.form.telefone,
-          title: this.form.cpfCnpj,
-          name: this.form.nome,
+          deal: {
+            name: this.form.name
+          },
+          contacts: [{
+            emails: [{
+              email: this.form.email
+            }],
+            phones: [{
+              phone: this.form.telefone,
+              type: 'celular'
+            }],
+            title: this.form.cpfCnpj
+          }],
           deal_products: [{
-            amount: this.form.quantidade,
-            base_price: this.form.price,
-            description: this.form.name,
             name: this.form.name,
-            price: this.form.price,
-            total: Number(this.form.price.replace(/[^0-9.-]+/g, "")) * Number(this.form.quantidade),
+            price: Number(this.form.price),
+            total: Number(this.form.price) * Number(this.form.quantidade)
           }]
-        };
+        }
+
         try {
-          const response = await fetch('/wp-json/v1/product-contact', {
+          const response = await fetch('/wp-json/v1/produto', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

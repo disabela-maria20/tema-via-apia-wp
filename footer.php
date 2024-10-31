@@ -63,7 +63,7 @@
     </div>
   </div>
 </footer>
-<?php ?>
+
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/lib/vue@2.js"></script>
 <script>
   new Vue({

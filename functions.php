@@ -1,10 +1,10 @@
 <?php
 
-require_once  (get_template_directory() . '/inc/product-list.php');
-require_once  (get_template_directory() . "/api/banner.php");
-require_once  (get_template_directory() . "/api/sac.php");
-require_once  (get_template_directory() . "/api/newslleter.php");
-// include(get_template_directory() . "/api/produto.php");
+require_once(get_template_directory() . '/inc/product-list.php');
+require_once(get_template_directory() . "/api/banner.php");
+require_once(get_template_directory() . "/api/sac.php");
+require_once(get_template_directory() . "/api/newslleter.php");
+require_once(get_template_directory() . "/api/produto.php");
 
 function handel_add_woocommerce_support()
 {
@@ -70,5 +70,3 @@ function excluir_cestas_de_natal_da_loja($query)
   }
 }
 add_action('pre_get_posts', 'excluir_cestas_de_natal_da_loja');
-
-
