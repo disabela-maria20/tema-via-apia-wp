@@ -6,107 +6,110 @@
   }
 
   .sac-via-apia {
-    background: url('../images/fb4933ce-3340-41f2-bb01-aed3c4e89e13.png');
+    background: url("../images/fb4933ce-3340-41f2-bb01-aed3c4e89e13.png");
     border-radius: 20px;
     color: $primary-light-color;
     padding: 20px;
 
-    @include media(lg){
+    @include media(lg) {
       padding: 45px;
     }
 
-    h1{
+    h1 {
       font-size: 3.1rem;
       margin-bottom: 15px;
-  
+
       @include media(lg) {
         font-size: 3.5rem;
       }
     }
-    p{
+    p {
+      font-size: 1.4rem;
+      line-height: 2.2rem;
+    }
+
+    label {
+      margin: 5px 0 15px;
       font-size: 1.4rem;
       line-height: 2.2rem;
     }
     .grid {
       align-items: center;
 
-      form{
+      form {
         display: flex;
         flex-direction: column;
         gap: 10px;
-        label {
-          input {
-            @include Input('vermelho');
-          }
-          textarea{
-            @include Input('vermelho');
-            padding: 20px;
-            height: 200px;
-          }
+        input {
+          @include Input("vermelho");
         }
-      }
-
-      
-    }
-
-    .area-btn{
-      display: flex;
-      justify-content: end;
-
-      button{
-        background-color: $primary-light-color;
-        border: none;
-        font-size: 1.6rem;
-        padding: 10px 20px;
-        color: $primary-color;   
-        font-weight: 700;
-        text-transform: uppercase;
-        border-radius: 20px;
-        transition: all 200ms ease-in;
-        &:hover, &:focus, &:active{
-          background-color: $secondary-color-gradient;
-          color: $primary-light-color;
-
+        textarea {
+          @include Input("vermelho");
+          padding: 20px;
+          height: 200px;
         }
       }
     }
   }
+}
 
-  .sac-contato{
-    padding-top: 35px ;
+.sac-contato {
+  padding-top: 35px;
 
-    @include media(lg){
-      padding-top: 90px;
+  @include media(lg) {
+    padding-top: 90px;
+  }
+  .item {
+    @include media(lg) {
+      display: grid;
+      grid-template-columns: 1fr 4fr;
+      gap: 20px;
+      align-items: center;
     }
-    .item {
-      @include media(lg){
-        display: grid;
-        grid-template-columns: 1fr 4fr;
-        gap: 20px;
-        align-items: center;
-      }
-      img{
-        display: block;
-        margin: 0 auto;
-      }
-      h3{
-        text-align: center;
-        font-size: 2.8rem;
-        padding: 10px 0;
-        text-transform: capitalize;
+    img {
+      display: block;
+      margin: 0 auto;
+    }
+    h3 {
+      text-align: center;
+      font-size: 2.8rem;
+      padding: 10px 0;
+      text-transform: capitalize;
 
-        @include media(lg){
-          text-align: left;
-        }
+      @include media(lg) {
+        text-align: left;
       }
-      p{
-        font-size: 1.4rem;
-        line-height: 2.2rem;
-        text-align: center;
-        @include media(lg){
-          text-align: left;
-        }
+    }
+    p {
+      font-size: 1.4rem;
+      line-height: 2.2rem;
+      text-align: center;
+      @include media(lg) {
+        text-align: left;
       }
     }
   }
+}
+
+.wpforms-submit {
+  background-color: $primary-light-color;
+  border: none;
+  font-size: 1.6rem;
+  padding: 10px 20px;
+  color: $primary-color;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 20px;
+  transition: all 200ms ease-in;
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $secondary-color-gradient;
+    color: $primary-light-color;
+  }
+}
+#wpforms-error-noscript,
+.wpforms-error-noscript,
+.wpforms-hidden {
+  display: none;
 }

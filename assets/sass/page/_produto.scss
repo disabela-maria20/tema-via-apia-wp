@@ -44,14 +44,11 @@
       padding: 10px 0;
       font-weight: 700;
       color: $primary-color;
-      margin-bottom: 20px;
     }
 
     .product-categories {
-
-        font-size: 2.8rem;
-        color: $primary-dark-color;
-
+      font-size: 2.8rem;
+      color: $primary-dark-color;
     }
 
     .product-comments {
@@ -86,7 +83,7 @@
         line-height: 2rem;
       }
 
-      >h4 {
+      > h4 {
         margin-top: 10px;
         font-size: 1.6rem;
         vertical-align: baseline;
@@ -98,7 +95,6 @@
     margin-top: 35px;
 
     .cta-comprar {
-
       background-color: $primary-color;
       border: none;
       color: $primary-light-color;
@@ -116,12 +112,11 @@
   }
 }
 
-
-.relacinados{
-  .subtitulo{
+.relacinados {
+  .subtitulo {
     text-align: center;
     font-size: 2.8rem;
-    @include media(lg){
+    @include media(lg) {
       font-size: 3.1rem;
     }
   }
