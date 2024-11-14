@@ -13,6 +13,7 @@ function format_single_product($product_id)
     'id' => $product->get_id(),
     'name' => $product->get_name(),
     'sku' => $product->get_sku(),
+    'description' => $product->get_description(),
     'price' => $product->get_price_html(),
     'gallery' => wp_get_attachment_image_src($product->get_image_id(), 'full'),
     'categories' => wp_get_post_terms($product_id, 'product_cat', ['fields' => 'names']),
@@ -30,6 +31,7 @@ if (!function_exists('format_products')) {
           'id' => $product->get_id(),
           'name' => $product->get_name(),
           'price' => $product->get_price_html(),
+          'description' => $product->get_description(),
           'image' => wp_get_attachment_image_src($product->get_image_id(), 'medium')[0],
         ];
       }
@@ -73,6 +75,7 @@ if (!empty($categories)) {
                 <h1><?= esc_html($produto['name']); ?></h1>
                 <p class="product-categories"><?= implode(', ', $produto['categories']); ?></p>
                 <p class="product-price"><?= $produto['price']; ?></p>
+                <p class="description"><?= $produto['description']; ?></p>
                 <?php $fields = CFS()->get('comentario'); ?>
                 <?php if ($fields) { ?>
                   <div class="product-comments">
@@ -96,6 +99,7 @@ if (!empty($categories)) {
                     </section>
                   </div>
                 <?php } ?>
+
                 <div class="cta">
                   <button @click.prevent="openModal" class="cta-comprar">Comprar</button>
                 </div>

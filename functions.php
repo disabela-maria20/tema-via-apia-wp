@@ -70,3 +70,17 @@ function excluir_cestas_de_natal_da_loja($query)
   }
 }
 add_action('pre_get_posts', 'excluir_cestas_de_natal_da_loja');
+
+
+function start_output_buffer() {
+  ob_start('remove_wpforms_inline_style');
+}
+add_action('template_redirect', 'start_output_buffer');
+
+function remove_wpforms_inline_style($buffer) {
+  $buffer = preg_replace('/<style id="wpforms-css-vars-root".*?<\/style>/s', '', $buffer);
+  
+  $buffer = preg_replace('/<link rel="stylesheet" id="wpforms-admin-bar-css".*?\/>/s', '', $buffer);
+  
+  return $buffer;
+}
