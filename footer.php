@@ -2,7 +2,8 @@
   <div class="container">
     <div class="grid">
       <div>
-        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/via-apia-rodape.png" alt="logo" width="103" height="73">
+        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/via-apia-rodape.png" alt="logo" width="103"
+          height="73">
         <ul class="redes">
           <li>
             <a href="">
@@ -29,8 +30,8 @@
       <nav>
         <?php
         $args = array(
-          'menu' => 'principal',
-          'theme_location' => 'menu-principal',
+          'menu' => 'menu rodape',
+          'theme_location' => 'menu-rodape',
           'container' => false
         );
         wp_nav_menu($args); ?>
@@ -39,11 +40,7 @@
         <div class="newsletter">
           <h2>Seja o primeiro a receber novidades!</h2>
           <div class="area-input">
-            <input
-              type="email"
-              v-model="email"
-              placeholder="Insira seu e-mail"
-              :class="{ 'input-error': emailError }"
+            <input type="email" v-model="email" placeholder="Insira seu e-mail" :class="{ 'input-error': emailError }"
               required>
             <button type="submit">Inscreva-se</button>
           </div>
@@ -66,56 +63,58 @@
 
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/lib/vue@2.js"></script>
 <script>
-  new Vue({
-    el: '#newsletter-form',
-    data() {
-      return {
-        email: '',
-        emailError: '',
-        modalMessage: ''
-      };
+new Vue({
+  el: '#newsletter-form',
+  data() {
+    return {
+      email: '',
+      emailError: '',
+      modalMessage: ''
+    };
+  },
+  methods: {
+    validateEmail() {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!this.email) {
+        this.emailError = 'O e-mail é obrigatório.';
+        return false;
+      } else if (!emailPattern.test(this.email)) {
+        this.emailError = 'Por favor, insira um e-mail válido.';
+        return false;
+      } else {
+        this.emailError = '';
+        return true;
+      }
     },
-    methods: {
-      validateEmail() {
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!this.email) {
-          this.emailError = 'O e-mail é obrigatório.';
-          return false;
-        } else if (!emailPattern.test(this.email)) {
-          this.emailError = 'Por favor, insira um e-mail válido.';
-          return false;
-        } else {
-          this.emailError = '';
-          return true;
-        }
-      },
-      async submitNewsletter() {
-        if (!this.validateEmail()) return;
-        try {
-          const response = await fetch('/wp-json/api/v1/enviar-contato', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email: this.email })
+    async submitNewsletter() {
+      if (!this.validateEmail()) return;
+      try {
+        const response = await fetch('/wp-json/api/v1/enviar-contato', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: this.email
+          })
         });
 
-          if (response.ok) {
-            this.modalMessage = 'Obrigado por se inscrever na nossa newsletter!';
-            this.email = '';
-          } else {
-            this.modalMessage = 'Houve um problema ao enviar sua inscrição. Tente novamente mais tarde.';
-          }
-        } catch (error) {
-          console.error('Erro ao enviar a inscrição:', error);
-          this.modalMessage = 'Erro de conexão. Tente novamente mais tarde.';
+        if (response.ok) {
+          this.modalMessage = 'Obrigado por se inscrever na nossa newsletter!';
+          this.email = '';
+        } else {
+          this.modalMessage = 'Houve um problema ao enviar sua inscrição. Tente novamente mais tarde.';
         }
-      },
-      closeModal() {
-        this.modalMessage = '';
+      } catch (error) {
+        console.error('Erro ao enviar a inscrição:', error);
+        this.modalMessage = 'Erro de conexão. Tente novamente mais tarde.';
       }
+    },
+    closeModal() {
+      this.modalMessage = '';
     }
-  });
+  }
+});
 </script>
 <?php wp_footer(); ?>
 </body>

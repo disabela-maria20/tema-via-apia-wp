@@ -5,7 +5,8 @@
     padding-top: 90px;
   }
 
-  .grid {
+  .grid,
+  .valores {
     img {
       border-radius: 20px;
       max-height: 550px;
@@ -22,7 +23,8 @@
       }
     }
 
-    p {
+    p,
+    li {
       font-size: 1.4rem;
       line-height: 2.4rem;
       margin-bottom: 30px;
@@ -31,26 +33,25 @@
         font-size: 1.8rem;
       }
     }
-
   }
 
   .item-center {
     padding: 45px 0;
 
     @include media(lg) {
-      padding: 90px 0;
+      padding: 40px 0 90px;
     }
 
     a {
       @include CTAButton(lg);
       padding: 15px 30px;
-      font-size: 18px
+      font-size: 18px;
     }
   }
 }
 
 .vendas-via-apia {
-  background: url('../images/fb4933ce-3340-41f2-bb01-aed3c4e89e13.png') no-repeat center center;
+  background: url("../images/fb4933ce-3340-41f2-bb01-aed3c4e89e13.png") no-repeat center center;
   background-size: cover;
 
   h2 {
@@ -66,7 +67,7 @@
 
   .grid {
     .item {
-      background-color: $primary-color-dark ;
+      background-color: $primary-color-dark;
       color: $primary-light-color;
       padding: 20px;
       border-radius: 20px;
@@ -118,7 +119,7 @@
       z-index: 1;
 
       &::after {
-        content: '';
+        content: "";
         transition: transform 0.2s ease;
         position: absolute;
         top: 0;
@@ -129,7 +130,6 @@
         transform: skewX(-15deg);
         border-radius: 10px;
         z-index: -1;
-
       }
 
       &:hover::after {
@@ -138,7 +138,6 @@
       }
 
       &:hover {
-
         cursor: pointer;
       }
     }

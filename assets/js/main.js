@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Inicializa o carrossel de banners se o elemento #banner existir
   const bannerElement = document.querySelector('#banner');
   if (bannerElement) {
-    new Splide('#banner', ).mount();
+    new Splide('#banner',).mount();
   }
 
   // Inicializa o carrossel de produtos se o elemento #product existir
@@ -47,13 +47,13 @@ document.addEventListener('DOMContentLoaded', function () {
   const comentariosElement = document.querySelector('#comentarios');
   if (comentariosElement) {
     console.log(comentariosElement);
-    
+
     new Splide('#comentarios', {
       perPage: 2,
       gap: '20px',
       breakpoints: {
         640: {
-          perPage:1,
+          perPage: 1,
         },
         990: {
           perPage: 2,
@@ -62,6 +62,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }).mount();
   }
 
-  
+
 });
 
+function removeWpformsClasses() {
+  var elements = document.querySelectorAll('.wpforms-container, .wpforms-container-full, .wpforms-render-modern');
+  var scrits = document.querySelector('.wpforms-error-noscript #wpforms-error-noscript')
+  elements.forEach(function (element) {
+    element.classList.remove('wpforms-container', 'wpforms-container-full', 'wpforms-render-modern');
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  removeWpformsClasses();
+});
