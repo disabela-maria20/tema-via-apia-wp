@@ -31,10 +31,7 @@ get_header();
                 <span v-if="erros.nomeEmpresa">{{ mensagensErro.nomeEmpresa }}</span>
               </label>
               <label>
-                <the-mask
-                  v-model="cpfCnpj"
-                  :mask="['###.###.###-##', '##.###.###/####-##']"
-                  placeholder="CPF ou CNPJ"
+                <the-mask v-model="cpfCnpj" :mask="['###.###.###-##', '##.###.###/####-##']" placeholder="CPF ou CNPJ"
                   :class="{'erro': erros.cpfCnpj}">
                 </the-mask>
                 <span v-if="erros.cpfCnpj">{{ mensagensErro.cpfCnpj }}</span>
@@ -46,11 +43,7 @@ get_header();
                 <span v-if="erros.email">{{ mensagensErro.email }}</span>
               </label>
               <label>
-                <the-mask
-                  mask="(##) #####-####"
-                  v-model="whatsapp"
-                  id="telefone_whatsapp"
-                  placeholder="Telefone/Whatsapp"
+                <the-mask mask="(##) #####-####" v-model="whatsapp" id="telefone_whatsapp" placeholder="Telefone/Whatsapp"
                   :class="{'erro': erros.whatsapp}">
                 </the-mask>
                 <span v-if="erros.whatsapp">{{ mensagensErro.whatsapp }}</span>
@@ -94,7 +87,7 @@ endif; ?>
       titulo: '<?php echo esc_html(CFS()->get('titulo')); ?>' || '',
       texto: `<?php echo wp_kses_post(CFS()->get('texto')); ?>` || '',
       titulo_produtos: '<?php echo esc_html(CFS()->get('titulo_produtos')); ?>' || '',
-    
+
       nomeEmpresa: '',
       cpfCnpj: '',
       email: '',

@@ -65,7 +65,8 @@ if (!empty($categories)) {
               <div class="product-gallery" data-gallery="gallery">
                 <div class="product-gallery-list">
                   <?php if (!empty($produto['gallery'])) { ?>
-                    <img data-gallery="list" src="<?= esc_url($produto['gallery'][0]); ?>" alt="<?= esc_attr($produto['name']); ?>">
+                    <img data-gallery="list" src="<?= esc_url($produto['gallery'][0]); ?>"
+                      alt="<?= esc_attr($produto['name']); ?>">
                   <?php } ?>
                 </div>
               </div>
@@ -149,15 +150,12 @@ if (!empty($categories)) {
             <h2>Entre em contato para um orçamento</h2>
             <form @submit.prevent="comprar">
               <div class="grid grid-2 gap-10">
-                <label for="nome" >
+                <label for="nome">
                   <input type="text" placeholder="Nome" id="nome" v-model="form.nome">
                   <span v-if="errors.nome" class="error">{{ errors.nome }}</span>
                 </label>
                 <label for="telefone_whatsapp">
-                  <the-mask
-                    mask="(##) #####-####"
-                    v-model="form.telefone"
-                    id="telefone_whatsapp"
+                  <the-mask mask="(##) #####-####" v-model="form.telefone" id="telefone_whatsapp"
                     placeholder="Telefone/Whatsapp">
                   </the-mask>
                   <span v-if="errors.telefone" class="error">{{ errors.telefone }}</span>
@@ -171,9 +169,7 @@ if (!empty($categories)) {
               </div>
               <div class="grid grid-2 gap-10">
                 <label for="cpfCnpj">
-                  <the-mask
-                    v-model="form.cpfCnpj"
-                    :mask="['###.###.###-##', '##.###.###/####-##']"
+                  <the-mask v-model="form.cpfCnpj" :mask="['###.###.###-##', '##.###.###/####-##']"
                     placeholder="CPF ou CNPJ">
                   </the-mask>
                   <span v-if="errors.cpfCnpj" class="error">{{ errors.cpfCnpj }}</span>
@@ -258,7 +254,7 @@ if (!empty($categories)) {
         this.isModalOpen = true;
       },
       async comprar() {
-        if(!this.validateForm()) return
+        if (!this.validateForm()) return
         this.isLoading = true;
         const data = {
           deal: {
