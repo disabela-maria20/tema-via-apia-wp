@@ -15,14 +15,14 @@ get_header();
           </div>
         </div>
         <hr class="divisor" />
-        <h2>{{ titulo_produtos }}</h2>
+        <!-- <h2>{{ titulo_produtos }}</h2> -->
         <form @submit.prevent="POSTEntrarEmContato">
-          <div class="lista">
+          <!-- <div class="lista">
             <label class="list" v-for="(item, index) in itens" :key="index">
               <input type="checkbox" :value="item" v-model="itensSelecionados">
               <span>{{ item }}</span>
             </label>
-          </div>
+          </div> -->
           <h2>Preencha seus dados:</h2>
           <div class="area-input">
             <div class="grid grid-2-md gap-10">
@@ -82,18 +82,19 @@ get_header();
 <?php endwhile;
 endif; ?>
 <?php get_footer(); ?>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/lib/vue-the-mask.min.js"></script>
 
 <script>
   new Vue({
     el: '#app',
     data: {
-      imagem: '<?php echo CFS()->get('imagem'); ?>',
-      titulo: '<?php echo esc_html(CFS()->get('titulo')); ?>',
-      texto: `<?php echo wp_kses_post(CFS()->get('texto')); ?>`,
-      titulo_produtos: '<?php echo esc_html(CFS()->get('titulo_produtos')); ?>',
-      itens: <?php echo json_encode(array_column(CFS()->get('itens'), 'item')); ?>,
-      itensSelecionados: [],
+      imagem: '<?php echo CFS()->get('imagem'); ?>' || '',
+      titulo: '<?php echo esc_html(CFS()->get('titulo')); ?>' || '',
+      texto: `<?php echo wp_kses_post(CFS()->get('texto')); ?>` || '',
+      titulo_produtos: '<?php echo esc_html(CFS()->get('titulo_produtos')); ?>' || '',
+    
       nomeEmpresa: '',
       cpfCnpj: '',
       email: '',
@@ -151,7 +152,7 @@ endif; ?>
             name: this.nomeEmpresa,
             price: precoLimpo,
             total: precoLimpo,
-            description: this.itensSelecionados.join(', ')
+            //description: this.itensSelecionados.join(', ')
           }]
         };
 
@@ -183,7 +184,7 @@ endif; ?>
         this.email = '';
         this.whatsapp = '';
         this.quantidade = '';
-        this.itensSelecionados = [];
+        //this.itensSelecionados = [];
         this.erros = {};
       },
       closeModal() {

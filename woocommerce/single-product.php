@@ -13,9 +13,11 @@ function format_single_product($product_id)
     'id' => $product->get_id(),
     'name' => $product->get_name(),
     'sku' => $product->get_sku(),
+    'description' => $product->get_description(),
     'price' => $product->get_price_html(),
     'gallery' => wp_get_attachment_image_src($product->get_image_id(), 'full'),
     'categories' => wp_get_post_terms($product_id, 'product_cat', ['fields' => 'names']),
+    'link' => get_permalink($product_id)
   ];
 }
 
@@ -30,6 +32,7 @@ if (!function_exists('format_products')) {
           'id' => $product->get_id(),
           'name' => $product->get_name(),
           'price' => $product->get_price_html(),
+          'description' => $product->get_description(),
           'image' => wp_get_attachment_image_src($product->get_image_id(), 'medium')[0],
         ];
       }
@@ -54,68 +57,81 @@ if (!empty($categories)) {
   <section class="bg-categoria" style="background: url(<?php echo esc_url($category_image_url); ?>);">
     <div class="container">
       <?php if (have_posts()) : ?>
-        <?php while (have_posts()) : the_post(); ?>
-          <?php
+      <?php while (have_posts()) : the_post(); ?>
+      <?php
           $produto = format_single_product(get_the_ID());
           if ($produto):
           ?>
-            <main class="produto">
-              <div class="product-gallery" data-gallery="gallery">
-                <div class="product-gallery-list">
-                  <?php if (!empty($produto['gallery'])) { ?>
-                    <img data-gallery="list" src="<?= esc_url($produto['gallery'][0]); ?>" alt="<?= esc_attr($produto['name']); ?>">
-                  <?php } ?>
-                </div>
-              </div>
+      <main class="produto">
+        <div class="product-gallery" data-gallery="gallery">
+          <div class="product-gallery-list">
+            <?php if (!empty($produto['gallery'])) { ?>
+            <img data-gallery="list" src="<?= esc_url($produto['gallery'][0]); ?>"
+              alt="<?= esc_attr($produto['name']); ?>">
+            <?php } ?>
+          </div>
+        </div>
 
-              <div class="product-detail">
-                <small><?= esc_html($produto['sku']); ?></small>
-                <h1><?= esc_html($produto['name']); ?></h1>
-                <p class="product-categories"><?= implode(', ', $produto['categories']); ?></p>
-                <p class="product-price"><?= $produto['price']; ?></p>
-                <?php $fields = CFS()->get('comentario'); ?>
-                <?php if ($fields) { ?>
-                  <div class="product-comments">
-                    <h3>Comentários</h3>
-                    <section class="splide" id="comentarios">
-                      <div class="splide__track">
-                        <ul class="splide__list">
-                          <?php foreach ($fields as $field) { ?>
-                            <li class="splide__slide">
-                              <div class="comments">
-                                <p><?php echo esc_html($field['comentario_feito']); ?></p>
-                                <h4>
-                                  <i class="bi bi-chat-right-fill"></i>
-                                  <span><?php echo esc_html($field['nome']); ?></span>
-                                </h4>
-                              </div>
-                            </li>
-                          <?php } ?>
-                        </ul>
-                      </div>
-                    </section>
-                  </div>
-                <?php } ?>
-                <div class="cta">
-                  <button @click.prevent="openModal" class="cta-comprar">Comprar</button>
-                </div>
-              </div>
-            </main>
-            <hr style="border: 1px solid <?= in_array('cesta-de-natal', $produto['categories']) ? '#8C0000' : '#ccc'; ?>;">
-            <section class="descricao">
-              <div class="grid">
-                <?php $fields = CFS()->get('item'); ?>
-                <ul class="item">
-                  <?php if ($fields) { ?>
-                    <?php foreach ($fields as $field) { ?>
-                      <li><?php echo esc_html($field['item_da_cesta']); ?></li>
-                    <?php } ?>
+        <div class="product-detail">
+          <small><?= esc_html($produto['sku']); ?></small>
+          <h1><?= esc_html($produto['name']); ?></h1>
+          <p class="product-categories"><?= implode(', ', $produto['categories']); ?></p>
+          <p class="product-price"><?= $produto['price']; ?></p>
+          <p class="description"><?= $produto['description']; ?></p>
+          <?php $fields = CFS()->get('comentario'); ?>
+          <?php if ($fields) { ?>
+          <div class="product-comments">
+            <h3>Comentários</h3>
+            <section class="splide" id="comentarios">
+              <div class="splide__track">
+                <ul class="splide__list">
+                  <?php foreach ($fields as $field) { ?>
+                  <li class="splide__slide">
+                    <div class="comments">
+                      <p><?php echo esc_html($field['comentario_feito']); ?></p>
+                      <h4>
+                        <i class="bi bi-chat-right-fill"></i>
+                        <span><?php echo esc_html($field['nome']); ?></span>
+                      </h4>
+                    </div>
+                  </li>
                   <?php } ?>
                 </ul>
-                <p><?php echo CFS()->get('informacao'); ?></p>
               </div>
             </section>
-            <?php
+          </div>
+          <?php } ?>
+
+          <div class="cta">
+            <?php 
+              $whatsapp_number = "5511994638310"; 
+              $product_name = urlencode($produto['link']); 
+              $whatsapp_message = "Olá, estou interessado no produto: $product_name.";
+              $whatsapp_link = "https://api.whatsapp.com/send?phone=$whatsapp_number&text=$whatsapp_message";
+            ?>
+            <button class="cta-comprar" onclick="window.location.href='<?php echo esc_url($whatsapp_link); ?>'">
+              Comprar
+            </button>
+
+            <!-- <button @click.prevent="openModal" >Comprar</button> -->
+          </div>
+        </div>
+      </main>
+      <hr style="border: 1px solid <?= in_array('cesta-de-natal', $produto['categories']) ? '#8C0000' : '#ccc'; ?>;">
+      <section class="descricao">
+        <div class="grid">
+          <?php $fields = CFS()->get('item'); ?>
+          <ul class="item">
+            <?php if ($fields) { ?>
+            <?php foreach ($fields as $field) { ?>
+            <li><?php echo esc_html($field['item_da_cesta']); ?></li>
+            <?php } ?>
+            <?php } ?>
+          </ul>
+          <p><?php echo CFS()->get('informacao'); ?></p>
+        </div>
+      </section>
+      <?php
             if (isset($produto)) {
               $related_ids = wc_get_related_products($produto['id'], 6);
               $related_products = [];
@@ -125,18 +141,18 @@ if (!empty($categories)) {
               $related = format_products($related_products);
             }
             ?>
-            <section class="relacinados">
-              <div class="container">
-                <h2 class="subtitulo">Relacionados</h2>
-                <div class="grid grid-3-lg gap-32">
-                  <?php handel_product_list($related); ?>
-                </div>
-              </div>
-            </section>
-          <?php else: ?>
-            <p>Produto não encontrado.</p>
-          <?php endif; ?>
-        <?php endwhile; ?>
+      <section class="relacinados">
+        <div class="container">
+          <h2 class="subtitulo">Relacionados</h2>
+          <div class="grid grid-3-lg gap-32">
+            <?php handel_product_list($related); ?>
+          </div>
+        </div>
+      </section>
+      <?php else: ?>
+      <p>Produto não encontrado.</p>
+      <?php endif; ?>
+      <?php endwhile; ?>
       <?php endif; ?>
 
       <div v-if="isModalOpen">
@@ -145,15 +161,12 @@ if (!empty($categories)) {
             <h2>Entre em contato para um orçamento</h2>
             <form @submit.prevent="comprar">
               <div class="grid grid-2 gap-10">
-                <label for="nome" >
+                <label for="nome">
                   <input type="text" placeholder="Nome" id="nome" v-model="form.nome">
                   <span v-if="errors.nome" class="error">{{ errors.nome }}</span>
                 </label>
                 <label for="telefone_whatsapp">
-                  <the-mask
-                    mask="(##) #####-####"
-                    v-model="form.telefone"
-                    id="telefone_whatsapp"
+                  <the-mask mask="(##) #####-####" v-model="form.telefone" id="telefone_whatsapp"
                     placeholder="Telefone/Whatsapp">
                   </the-mask>
                   <span v-if="errors.telefone" class="error">{{ errors.telefone }}</span>
@@ -167,9 +180,7 @@ if (!empty($categories)) {
               </div>
               <div class="grid grid-2 gap-10">
                 <label for="cpfCnpj">
-                  <the-mask
-                    v-model="form.cpfCnpj"
-                    :mask="['###.###.###-##', '##.###.###/####-##']"
+                  <the-mask v-model="form.cpfCnpj" :mask="[' ###.###.###-##', '##.###.###/####-##' ]"
                     placeholder="CPF ou CNPJ">
                   </the-mask>
                   <span v-if="errors.cpfCnpj" class="error">{{ errors.cpfCnpj }}</span>
@@ -209,95 +220,95 @@ if (!empty($categories)) {
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/lib/vue-the-mask.min.js"></script>
 
 <script>
-  new Vue({
-    el: "#app",
-    data() {
-      return {
-        isModalOpen: false,
-        isLoading: false,
-        modalMessage: null,
-        form: {
-          nome: '',
-          telefone: '',
-          email: '',
-          cpfCnpj: '',
-          quantidade: null,
-          name: <?php echo json_encode($produto['name']); ?>,
-          price: null
+new Vue({
+  el: "#app",
+  data() {
+    return {
+      isModalOpen: false,
+      isLoading: false,
+      modalMessage: null,
+      form: {
+        nome: '',
+        telefone: '',
+        email: '',
+        cpfCnpj: '',
+        quantidade: null,
+        name: <?php echo json_encode($produto['name']); ?>,
+        price: null
+      },
+      errors: {}
+    };
+  },
+  mounted() {
+    const priceElement = document.querySelector('.product-price');
+    if (priceElement) {
+      const priceText = priceElement.textContent.trim();
+      const numericPrice = parseFloat(priceText.replace(/[^\d,]/g, '').replace(',', '.'));
+      this.form.price = numericPrice;
+    }
+  },
+  methods: {
+    validateForm() {
+      this.errors = {};
+      if (!this.form.nome) this.errors.nome = "Nome é obrigatório.";
+      if (!this.form.telefone) this.errors.telefone = "Telefone é obrigatório.";
+      if (!this.form.email) this.errors.email = "Email é obrigatório.";
+      if (!this.form.cpfCnpj) this.errors.cpfCnpj = "CPF ou CNPJ é obrigatório.";
+      if (!this.form.quantidade || this.form.quantidade < 10) this.errors.quantidade = "Quantidade mínima é 10.";
+      return Object.keys(this.errors).length === 0;
+    },
+    closeModal() {
+      this.modalMessage = null;
+      this.isModalOpen = false;
+    },
+    openModal() {
+      this.isModalOpen = true;
+    },
+    async comprar() {
+      if (!this.validateForm()) return
+      this.isLoading = true;
+      const data = {
+        deal: {
+          name: this.form.name
         },
-        errors: {}
-      };
-    },
-    mounted() {
-      const priceElement = document.querySelector('.product-price');
-      if (priceElement) {
-        const priceText = priceElement.textContent.trim();
-        const numericPrice = parseFloat(priceText.replace(/[^\d,]/g, '').replace(',', '.'));
-        this.form.price = numericPrice;
-      }
-    },
-    methods: {
-      validateForm() {
-        this.errors = {};
-        if (!this.form.nome) this.errors.nome = "Nome é obrigatório.";
-        if (!this.form.telefone) this.errors.telefone = "Telefone é obrigatório.";
-        if (!this.form.email) this.errors.email = "Email é obrigatório.";
-        if (!this.form.cpfCnpj) this.errors.cpfCnpj = "CPF ou CNPJ é obrigatório.";
-        if (!this.form.quantidade || this.form.quantidade < 10) this.errors.quantidade = "Quantidade mínima é 10.";
-        return Object.keys(this.errors).length === 0;
-      },
-      closeModal() {
-        this.modalMessage = null;
-        this.isModalOpen = false;
-      },
-      openModal() {
-        this.isModalOpen = true;
-      },
-      async comprar() {
-        if(!this.validateForm()) return
-        this.isLoading = true;
-        const data = {
-          deal: {
-            name: this.form.name
-          },
-          contacts: [{
-            emails: [{
-              email: this.form.email
-            }],
-            phones: [{
-              phone: this.form.telefone,
-              type: 'celular'
-            }],
-            title: this.form.cpfCnpj
+        contacts: [{
+          emails: [{
+            email: this.form.email
           }],
-          deal_products: [{
-            name: this.form.name,
-            price: Number(this.form.price),
-            total: Number(this.form.price) * Number(this.form.quantidade)
-          }]
-        }
+          phones: [{
+            phone: this.form.telefone,
+            type: 'celular'
+          }],
+          title: this.form.cpfCnpj
+        }],
+        deal_products: [{
+          name: this.form.name,
+          price: Number(this.form.price),
+          total: Number(this.form.price) * Number(this.form.quantidade)
+        }]
+      }
 
-        try {
-          const response = await fetch('/wp-json/v1/produto', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data),
-          });
+      try {
+        const response = await fetch('/wp-json/v1/produto', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data),
+        });
 
-          if (response.ok) {
-            this.modalMessage = "Mensagem enviada com sucesso!";
-          } else {
-            const errorData = await response.json();
-            this.modalMessage = errorData.message || "Erro ao enviar a mensagem.";
-          }
-        } catch (error) {
-          this.modalMessage = "Erro ao enviar a mensagem.";
-        } finally {
-          this.isLoading = false;
+        if (response.ok) {
+          this.modalMessage = "Mensagem enviada com sucesso!";
+        } else {
+          const errorData = await response.json();
+          this.modalMessage = errorData.message || "Erro ao enviar a mensagem.";
         }
+      } catch (error) {
+        this.modalMessage = "Erro ao enviar a mensagem.";
+      } finally {
+        this.isLoading = false;
       }
     }
-  });
+  }
+});
 </script>

@@ -28,7 +28,6 @@
   }
 }
 
-
 .bg-cestas-natal {
   background-size: cover;
   background-size: cover !important;
@@ -53,7 +52,7 @@
     }
   }
 
-  h1+p {
+  h1 + p {
     font-size: 1.6rem;
     margin-bottom: 5px;
     text-align: center;
@@ -61,7 +60,7 @@
 }
 
 .descricao {
-  padding: 35px 0;
+  padding: 0 0 35px 0;
 
   h2 {
     font-size: 2.8rem;
@@ -75,6 +74,7 @@
   }
 
   .grid {
+    padding-top: 35px;
     @include media(lg) {
       grid-template-columns: 2fr 1fr;
     }
@@ -94,7 +94,6 @@
       font-size: 1.6rem;
     }
   }
-
 }
 
 .relacinados {
