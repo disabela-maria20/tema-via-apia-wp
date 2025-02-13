@@ -48,89 +48,11 @@ get_header();
             <ul class="itens-da-cesta">
               <li v-for="(item, index) in itens" :key="index">{{ item.item_da_cesta }}</li>
             </ul>
+            <div class="area-btn">
+              <a class="btn" href="https://api.whatsapp.com/send?phone=5511994638310">Doar cesta</a>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div class="container">
-      <hr class="divisor" />
-    </div>
-
-    <div class="form-doar">
-      <div class="container">
-        <form @submit.prevent="enviarFormulario">
-          <h2>Preencha seus dados:</h2>
-          <div class="form-area">
-            <div class="grid grid-2-md gap-10 form-input">
-              <label>
-                <input type="text" v-model="form.nome" placeholder="Nome/Empresa*" required
-                  @input="limparEspacos('nome')">
-                <span v-if="erros.nome" class="error">{{ erros.nome }}</span>
-              </label>
-              <label>
-                <input type="text" v-model="form.cpfCnpj" placeholder="CPF ou CNPJ*" required
-                  @input="limparEspacos('cpfCnpj')" @blur="validarCpfCnpj">
-                <span v-if="erros.cpfCnpj" class="error">{{ erros.cpfCnpj }}</span>
-              </label>
-            </div>
-            <div class="grid grid-2-md gap-10 form-input">
-              <label>
-                <input type="text" v-model="form.whatsapp" placeholder="WhatsApp*" required
-                  @input="limparEspacos('whatsapp')" @blur="validarWhatsapp">
-                <span v-if="erros.whatsapp" class="error">{{ erros.whatsapp }}</span>
-              </label>
-              <label>
-                <input type="email" v-model="form.email" placeholder="E-mail*" required @input="limparEspacos('email')"
-                  @blur="validarEmail">
-                <span v-if="erros.email" class="error">{{ erros.email }}</span>
-              </label>
-            </div>
-            <div class="grid grid-3-md gap-10 form-input">
-              <label>
-                <input type="number" v-model="form.quantidade" placeholder="Quantidade" min="1" @input="atualizarTotal"
-                  required>
-              </label>
-              <label>
-                <input type="text" v-model="valor_cesta" disabled placeholder="Valor Unitário da Cesta">
-              </label>
-              <label>
-                <input type="text" v-model="total" disabled placeholder="Total">
-              </label>
-            </div>
-            <div class="form-input">
-              <label>
-                <select name="conheceu" v-model="form.conheceu" required @blur="validarConheceu">
-                  <option value="" disabled selected>Onde você conheceu a ONG?</option>
-                  <option value="internet">Internet</option>
-                  <option value="amigo">Amigo</option>
-                  <option value="familia">Família</option>
-                  <option value="evento">Evento</option>
-                  <option value="rede_social">Rede Social</option>
-                  <option value="televisao">Televisão</option>
-                  <option value="panfleto">Panfleto</option>
-                  <option value="outro">Outro</option>
-                </select>
-                <span v-if="erros.conheceu" class="error">{{ erros.conheceu }}</span>
-              </label>
-              <label>
-                <select name="forma_pagamento" v-model="form.forma_pagamento" required @blur="validarFormaPagamento">
-                  <option value="" disabled selected>Forma de pagamento</option>
-                  <option value="cartao_credito">Cartão de Crédito</option>
-                  <option value="cartao_debito">Cartão de Débito</option>
-                  <option value="boleto">Boleto</option>
-                  <option value="pix">PIX</option>
-                </select>
-                <span v-if="erros.forma_pagamento" class="error">{{ erros.forma_pagamento }}</span>
-              </label>
-            </div>
-          </div>
-          <div class="area-btn">
-            <div class="item-center">
-              <button type="submit">Enviar</button>
-            </div>
-          </div>
-        </form>
       </div>
     </div>
   </section>
