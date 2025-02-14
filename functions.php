@@ -4,7 +4,7 @@ require_once(get_template_directory() . '/inc/product-list.php');
 require_once(get_template_directory() . "/api/banner.php");
 require_once(get_template_directory() . "/api/sac.php");
 require_once(get_template_directory() . "/api/newslleter.php");
-
+require_once(get_template_directory() . "/api/doe.php");
 function handel_add_woocommerce_support()
 {
   add_theme_support('woocommerce');

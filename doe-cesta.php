@@ -48,20 +48,104 @@ get_header();
             <ul class="itens-da-cesta">
               <li v-for="(item, index) in itens" :key="index">{{ item.item_da_cesta }}</li>
             </ul>
-            <div class="area-btn">
-              <a class="btn" href="https://api.whatsapp.com/send?phone=5511994638310">Doar cesta</a>
-            </div>
           </div>
         </div>
       </div>
     </div>
+
+    <div class="container">
+      <hr class="divisor" />
+    </div>
+
+    <div class="form-doar">
+      <div class="container">
+        <form @submit.prevent="enviarFormulario">
+          <h2>Preencha seus dados:</h2>
+          <div class="form-area">
+            <div class="grid grid-2-md gap-10 form-input">
+              <label>
+                <input type="text" v-model="form.nome" placeholder="Nome/Empresa*" required
+                  @input="limparEspacos('nome')">
+                <span v-if="erros.nome" class="error">{{ erros.nome }}</span>
+              </label>
+              <label>
+                <input type="text" v-model="form.cpfCnpj" placeholder="CPF ou CNPJ*" required
+                  @input="limparEspacos('cpfCnpj')" @blur="validarCpfCnpj">
+                <span v-if="erros.cpfCnpj" class="error">{{ erros.cpfCnpj }}</span>
+              </label>
+            </div>
+            <div class="grid grid-2-md gap-10 form-input">
+              <label>
+                <input type="text" v-model="form.whatsapp" placeholder="WhatsApp*" required
+                  @input="limparEspacos('whatsapp')" @blur="validarWhatsapp">
+                <span v-if="erros.whatsapp" class="error">{{ erros.whatsapp }}</span>
+              </label>
+              <label>
+                <input type="email" v-model="form.email" placeholder="E-mail*" required @input="limparEspacos('email')"
+                  @blur="validarEmail">
+                <span v-if="erros.email" class="error">{{ erros.email }}</span>
+              </label>
+            </div>
+            <div class="grid grid-3-md gap-10 form-input">
+              <label>
+                <input type="number" v-model="form.quantidade" placeholder="Quantidade" min="1" @input="atualizarTotal"
+                  required>
+              </label>
+              <label>
+                <input type="text" v-model="valor_cesta" disabled placeholder="Valor Unitário da Cesta">
+              </label>
+              <label>
+                <input type="text" v-model="total" disabled placeholder="Total">
+              </label>
+            </div>
+            <div class="form-input">
+              <label>
+                <select name="conheceu" v-model="form.conheceu" required @blur="validarConheceu">
+                  <option value="" disabled selected>Onde você conheceu a ONG?</option>
+                  <option value="internet">Internet</option>
+                  <option value="amigo">Amigo</option>
+                  <option value="familia">Família</option>
+                  <option value="evento">Evento</option>
+                  <option value="rede_social">Rede Social</option>
+                  <option value="televisao">Televisão</option>
+                  <option value="panfleto">Panfleto</option>
+                  <option value="outro">Outro</option>
+                </select>
+                <span v-if="erros.conheceu" class="error">{{ erros.conheceu }}</span>
+              </label>
+            </div>
+          </div>
+          <div class="area-btn">
+            <div class="item-center">
+              <button type="submit">
+                <span v-if="loading">
+                  Carregando...
+                </span>
+                <span v-else>
+                  Enviar
+                </span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </section>
+  <div v-if="modalMessage" class="modal">
+    <div class="modal-content">
+      <p>{{ modalMessage }}</p>
+      <button @click="closeModal">Fechar</button>
+    </div>
+  </div>
   <?php endwhile; endif; ?>
 </div>
 
 <?php get_footer(); ?>
 
 <script>
+const ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+const nonce = '<?php echo wp_create_nonce('doacao_cesta_nonce'); ?>';
+
 new Vue({
   el: '#app',
   data: {
@@ -73,21 +157,21 @@ new Vue({
     imagem_cesta: '',
     titulo_cesta: '',
     valor_cesta: '',
+    loading: false,
+    modalMessage: '',
     form: {
       nome: '',
       cpfCnpj: '',
       whatsapp: '',
       email: '',
       quantidade: 1,
-      forma_pagamento: '',
-      conheceu: ''
+      conheceu: 'Amigo'
     },
     erros: {
       nome: '',
       cpfCnpj: '',
       whatsapp: '',
       email: '',
-      forma_pagamento: '',
       conheceu: ''
     }
   },
@@ -98,6 +182,9 @@ new Vue({
     }
   },
   methods: {
+    closeModal() {
+      this.modalMessage = '';
+    },
     mostrarItens(doacao) {
       this.itens = doacao.item || [];
       this.imagem_cesta = doacao.imagem_cesta;
@@ -126,31 +213,63 @@ new Vue({
       const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       this.erros.email = !regex.test(this.form.email) ? 'E-mail inválido.' : '';
     },
-    validarFormaPagamento() {
-      this.erros.forma_pagamento = !this.form.forma_pagamento ? 'Escolha uma forma de pagamento.' : '';
-    },
+
     validarConheceu() {
       this.erros.conheceu = !this.form.conheceu ? 'Escolha uma opção.' : '';
     },
-    enviarFormulario() {
+    async enviarFormulario() {
       this.erros = {
         nome: '',
         cpfCnpj: '',
         whatsapp: '',
         email: '',
-        forma_pagamento: '',
         conheceu: ''
       };
+
 
       if (!this.form.nome) this.erros.nome = 'Nome/Empresa é obrigatório.';
       if (!this.form.cpfCnpj) this.erros.cpfCnpj = 'CPF/CNPJ é obrigatório.';
       if (!this.form.whatsapp) this.erros.whatsapp = 'WhatsApp é obrigatório.';
       if (!this.form.email) this.erros.email = 'E-mail é obrigatório.';
       if (!this.form.conheceu) this.erros.conheceu = 'Informe onde conheceu a ONG.';
-      if (!this.form.forma_pagamento) this.erros.forma_pagamento = 'Forma de pagamento é obrigatória.';
 
       if (Object.values(this.erros).every(e => !e)) {
-        alert('Formulário enviado com sucesso!');
+        this.loading = true;
+        try {
+          const response = await fetch("http://localhost/via-api/wp-json/api/v1/send-email", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: "debora.santos@interbrandsfoods.com.br",
+              mensagem: ` 
+                Nome: ${this.form.nome}
+                CPF/CNPJ: ${this.form.cpfCnpj}
+                WhatsApp: ${this.form.whatsapp}
+                E-mail: ${this.form.email}
+                Conheceu a ONG: ${this.form.conheceu}
+                Quantidade: ${this.form.quantidade}
+                Título da Cesta: ${this.titulo_cesta}
+                Valor Unitário da Cesta: ${this.valor_cesta}
+                Total: ${this.total}`,
+            }),
+          });
+          console.log(response);
+
+          if (!response.ok) {
+            throw new Error(`Erro: ${response.status} - ${await response.text()}`);
+          }
+          if (response.ok) {
+            this.modalMessage = 'Sua mensagem foi enviada com sucesso!';
+          } else {
+            this.modalMessage = 'Houve um problema ao enviar sua mensagem. Tente novamente mais tarde.';
+          }
+        } catch (error) {
+          console.error("Erro ao enviar e-mail:", error.message);
+        } finally {
+          this.loading = false;
+        }
       }
     }
   }
