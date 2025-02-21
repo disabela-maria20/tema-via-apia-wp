@@ -180,7 +180,7 @@ if (!empty($categories)) {
               </div>
               <div class="grid grid-2 gap-10">
                 <label for="cpfCnpj">
-                  <the-mask v-model="form.cpfCnpj" :mask="[' ###.###.###-##', '##.###.###/####-##' ]"
+                  <the-mask :mask="[' ###.###.###-##', '##.###.###/####-##' ]" v-model="form.cpfCnpj"
                     placeholder="CPF ou CNPJ">
                   </the-mask>
                   <span v-if="errors.cpfCnpj" class="error">{{ errors.cpfCnpj }}</span>

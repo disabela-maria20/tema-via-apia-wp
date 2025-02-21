@@ -69,16 +69,16 @@ get_header();
                 <span v-if="erros.nome" class="error">{{ erros.nome }}</span>
               </label>
               <label>
-                <input type="text" v-model="form.cpfCnpj" placeholder="CPF ou CNPJ*" required
-                  @input="limparEspacos('cpfCnpj')" @blur="validarCpfCnpj">
-                <span v-if="erros.cpfCnpj" class="error">{{ erros.cpfCnpj }}</span>
+                <the-mask :mask="[' ###.###.###-##', '##.###.###/####-##' ]" type="text" v-model="form.cpfCnpj"
+                  placeholder="CPF ou CNPJ*" required @input="limparEspacos('cpfCnpj')" @blur="validarCpfCnpj">
+                  <span v-if="erros.cpfCnpj" class="error">{{ erros.cpfCnpj }}</span>
               </label>
             </div>
             <div class="grid grid-2-md gap-10 form-input">
               <label>
-                <input type="text" v-model="form.whatsapp" placeholder="WhatsApp*" required
+                <the-mask mask="(##) #####-####" type="text" v-model="form.whatsapp" placeholder="WhatsApp*" required
                   @input="limparEspacos('whatsapp')" @blur="validarWhatsapp">
-                <span v-if="erros.whatsapp" class="error">{{ erros.whatsapp }}</span>
+                  <span v-if="erros.whatsapp" class="error">{{ erros.whatsapp }}</span>
               </label>
               <label>
                 <input type="email" v-model="form.email" placeholder="E-mail*" required @input="limparEspacos('email')"
@@ -141,6 +141,7 @@ get_header();
 </div>
 
 <?php get_footer(); ?>
+<script src="<?php echo get_template_directory_uri(); ?>/assets/js/lib/vue-the-mask.min.js"></script>
 
 <script>
 const ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
@@ -236,6 +237,7 @@ new Vue({
       if (Object.values(this.erros).every(e => !e)) {
         this.loading = true;
         try {
+
           const response = await fetch("http://localhost/via-api/wp-json/api/v1/send-email", {
             method: "POST",
             headers: {
