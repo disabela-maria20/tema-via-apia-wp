@@ -41,7 +41,7 @@ get_header();
         <?php } ?>
       </div>
       <div class="item-center">
-        <a c><?php echo CFS()->get('cta-vendas-via-apia'); ?></a>
+        <a><?php echo CFS()->get('cta-vendas-via-apia'); ?></a>
       </div>
     </div>
   </section>

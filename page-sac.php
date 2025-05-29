@@ -12,7 +12,7 @@ get_header();
           <h1><?php echo esc_html(CFS()->get('titulo')); ?></h1>
           <p><?php echo wp_kses_post(CFS()->get('subtitulo')); ?></p>
         </div>
-        <?php echo do_shortcode('[wpforms id="309"]');?>
+        <?php echo do_shortcode('[wpforms id="549"]');?>
         <div v-if="modalMessage" class="modal">
           <div class="modal-content">
             <p>{{ modalMessage }}</p>
