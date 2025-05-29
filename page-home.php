@@ -18,7 +18,7 @@ $data['slide'] = format_products($products_slide, 'slide');
             'post_type' => 'banner',
             'posts_per_page' => -1,
           );
-          echo var_dump($args);
+          echo var_dump($args) . 'teste';
           
           $query = new WP_Query($args);
 
