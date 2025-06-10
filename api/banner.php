@@ -23,12 +23,11 @@ function registrar_cpt_banner()
 }
 add_action('init', 'registrar_cpt_banner');
 
-// Registrar Metadados do Banner (Imagem e Link)
 function registrar_meta_banner()
 {
   $campos = array(
-    'imagem', // URL ou ID do anexo da imagem do banner
-    'link',   // Link associado ao banner
+    'imagem', 
+    'link',   
   );
 
   foreach ($campos as $campo) {

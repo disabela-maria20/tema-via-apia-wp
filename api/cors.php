@@ -2,7 +2,8 @@
   function custom_cors_headers() {
     $allowed_origins = [
         'http://127.0.0.1:5500',
-        'https://via-apia.isabelamribeiro.com.br'
+        'https://via-apia.isabelamribeiro.com.br',
+        'https://cestasviaapia.com.br/'
     ];
 
     if (isset($_SERVER['HTTP_ORIGIN']) && in_array($_SERVER['HTTP_ORIGIN'], $allowed_origins)) {

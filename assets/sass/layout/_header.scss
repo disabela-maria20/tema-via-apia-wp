@@ -5,11 +5,11 @@ header {
   z-index: 1;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     width: 100%;
     height: 100%;
-    background: url('../images/logo-icon.png') no-repeat center right;
+    background: url("../images/logo-icon.png") no-repeat center right;
     z-index: -1;
     top: 0;
     left: 0;
@@ -37,7 +37,7 @@ header {
         height: 100%;
         object-fit: contain;
         z-index: 9999;
-
+        transform: scale(1.2);
         @include media(lg) {
           max-width: 100%;
         }
@@ -94,7 +94,6 @@ header {
         position: static;
         width: initial;
         margin: 0;
-
       }
 
       &.active {
@@ -113,7 +112,6 @@ header {
           &:nth-child(1) {
             width: 125%;
           }
-
         }
 
         #menu-menu-principal {
@@ -132,7 +130,7 @@ header {
 
             &.current_page_item {
               border-bottom: 2px solid$secondary-color;
-              a{
+              a {
                 color: $secondary-color;
               }
             }
@@ -162,7 +160,7 @@ header {
             &:hover {
               border-bottom: 2px solid$secondary-color;
               transition: width 400ms ease;
-              a{
+              a {
                 color: $secondary-color;
               }
               ul.sub-menu {
@@ -176,8 +174,8 @@ header {
                 position: absolute;
                 left: -100%;
                 top: 29px;
-  
-                >li {
+
+                > li {
                   margin: 0;
                   padding: 0 !important;
                   display: block;
@@ -229,7 +227,6 @@ header {
       }
 
       .text {
-
         h1 {
           @include FontSize(48, $font-family);
 
@@ -259,6 +256,16 @@ header {
         }
       }
     }
+  }
+}
 
+.img-whatsapp {
+  position: fixed;
+  right: 0;
+  padding: 20px;
+  bottom: 0;
+  z-index: 9999;
+  img {
+    width: 100px;
   }
 }

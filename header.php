@@ -14,7 +14,8 @@
       <div class="area_menu">
         <div class="area_logo">
           <a href="/">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/via-apia-logo.png" alt="logo" width="103" height="73">
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/via-apia-logo.png" alt="logo"
+              width="103" height="73">
           </a>
           <div class="menu_burguer">
             <span></span>
@@ -36,3 +37,8 @@
       </div>
     </div>
   </header>
+  <section class="img-whatsapp">
+    <a href="https://api.whatsapp.com/send?phone=5511994638310">
+      <img src="<?php echo get_template_directory_uri(); ?>/assets/images/whatsapp.png" alt="">
+    </a>
+  </section>

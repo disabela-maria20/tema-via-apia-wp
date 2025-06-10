@@ -41,7 +41,7 @@ get_header();
         <?php } ?>
       </div>
       <div class="item-center">
-        <a><?php echo CFS()->get('cta-vendas-via-apia'); ?></a>
+        <a href="https://api.whatsapp.com/send?phone=5511994638310"><?php echo CFS()->get('cta-vendas-via-apia'); ?></a>
       </div>
     </div>
   </section>
