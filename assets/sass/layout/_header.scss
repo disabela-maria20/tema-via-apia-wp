@@ -37,7 +37,8 @@ header {
         height: 100%;
         object-fit: contain;
         z-index: 9999;
-        transform: scale(1.2);
+        transform: scale(2);
+        margin-left: 64px;
         @include media(lg) {
           max-width: 100%;
         }
@@ -79,6 +80,17 @@ header {
     }
 
     .menu {
+      nav {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+
+        @include media(lg) {
+          position: static;
+          top: 0;
+          width: auto;
+        }
+      }
       transition: all 0.3s ease-in;
       transform: translate(-100%);
       position: absolute;
@@ -268,4 +280,8 @@ header {
   img {
     width: 100px;
   }
+}
+
+.splide {
+  z-index: -1;
 }
