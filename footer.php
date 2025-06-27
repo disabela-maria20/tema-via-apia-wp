@@ -11,13 +11,13 @@
             </a>
           </li>
           <li>
-            <a href="https://m.facebook.com/cestasviaapiaoriginal/" target="_blank">
+            <a href="https://br.linkedin.com/company/via-apia?trk=public_profile_topcard-current-company"
+              target="_blank">
               <i class="bi bi-linkedin"></i>
             </a>
           </li>
           <li>
-            <a href="https://br.linkedin.com/company/via-apia?trk=public_profile_topcard-current-company"
-              target="_blank">
+            <a href="https://www.instagram.com/cestas.viaapia/" target="_blank">
               <i class="bi bi-instagram"></i>
             </a>
           </li>
@@ -66,7 +66,17 @@
     </div>
   </div>
 </footer>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B8R4E3CQL3"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
 
+function gtag() {
+  dataLayer.push(arguments);
+}
+gtag('js', new Date());
+
+gtag('config', 'G-B8R4E3CQL3');
+</script>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/lib/vue@2.js"></script>
 <script>
 new Vue({
