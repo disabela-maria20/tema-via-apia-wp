@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -137,7 +137,7 @@ legend {
   padding: 0;
   white-space: normal;
 }
-ul{
+ul {
   list-style-type: none;
 }
 progress {
@@ -189,10 +189,14 @@ template {
   display: none;
 }
 
-*:focus, *:focus-within {
+*:focus,
+*:focus-within {
   box-shadow: 0 0 0 0;
   border: 0 none;
   outline: 0;
-} 
+}
 
-
+.splide.is-initialized,
+.splide.is-rendered {
+  z-index: 99999 !important;
+}

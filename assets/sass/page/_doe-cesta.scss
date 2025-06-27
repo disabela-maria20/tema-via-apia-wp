@@ -282,3 +282,27 @@ hr.divisor {
     }
   }
 }
+
+.area-pix {
+  max-width: 450px;
+  margin: 0 auto;
+  font-size: 1.6rem;
+  text-align: center;
+  display: grid;
+  gap: 15px;
+  align-items: center;
+  justify-items: center;
+
+  img {
+    width: 250px;
+  }
+
+  a {
+    color: $secondary-color-light;
+    transition: all;
+
+    &:hover {
+      color: $secondary-color;
+    }
+  }
+}
