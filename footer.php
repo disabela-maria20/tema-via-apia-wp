@@ -6,12 +6,18 @@
           height="73">
         <ul class="redes">
           <li>
-            <a href="">
+            <a href="https://m.facebook.com/cestasviaapiaoriginal/" target="_blank">
               <i class="bi bi-facebook"></i>
             </a>
           </li>
           <li>
-            <a href="">
+            <a href="https://m.facebook.com/cestasviaapiaoriginal/" target="_blank">
+              <i class="bi bi-linkedin"></i>
+            </a>
+          </li>
+          <li>
+            <a href="https://br.linkedin.com/company/via-apia?trk=public_profile_topcard-current-company"
+              target="_blank">
               <i class="bi bi-instagram"></i>
             </a>
           </li>
