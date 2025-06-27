@@ -1,30 +1,51 @@
-<?php 
+<?php
+// Adicionar ação AJAX para enviar doação
+add_action('wp_ajax_enviar_doacao_cesta', 'enviar_doacao_cesta');
+add_action('wp_ajax_nopriv_enviar_doacao_cesta', 'enviar_doacao_cesta');
 
-add_action('rest_api_init', function () {
-  register_rest_route('api/v1', '/send-email', array(
-      'methods' => 'POST',
-      'callback' => 'send_custom_email',
-  ));
-});
+function enviar_doacao_cesta() {
+    // Verificar nonce
+    if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'doacao_cesta_nonce')) {
+        wp_send_json_error('Requisição inválida.');
+    }
 
+    // Sanitizar dados
+    $dados = array(
+        'nome' => sanitize_text_field($_POST['nome']),
+        'cpfCnpj' => sanitize_text_field($_POST['cpfCnpj']),
+        'whatsapp' => sanitize_text_field($_POST['whatsapp']),
+        'email' => sanitize_email($_POST['email']),
+        'quantidade' => intval($_POST['quantidade']),
+        'conheceu' => sanitize_text_field($_POST['conheceu']),
+        'titulo_cesta' => sanitize_text_field($_POST['titulo_cesta']),
+        'valor_cesta' => sanitize_text_field($_POST['valor_cesta']),
+        'total' => sanitize_text_field($_POST['total'])
+    );
 
-function send_custom_email(WP_REST_Request $request) {
-  var_dump( $request);
-  $email = sanitize_email($request->get_param('email'));
-  $message = sanitize_textarea_field($request->get_param('mensagem'));
-  
-  if (empty($email) || empty($message)) {
-      return new WP_REST_Response(['error' => 'Email e mensagem são obrigatórios.'], 400);
-  }
-  
-  $subject = 'Contato de Doação';
-  $headers = ['Content-Type: text/html; charset=UTF-8'];
-  
-  $sent = wp_mail($email, $subject, nl2br($message), $headers);
-  
-  if ($sent) {
-      return new WP_REST_Response(['success' => 'Email enviado com sucesso.'], 200);
-  } else {
-      return new WP_REST_Response(['error' => 'Erro ao enviar email.'], 500);
-  }
+    // Aqui você pode adicionar lógica para enviar e-mail ou salvar no banco de dados
+    $email_admin = get_option('admin_email');
+    $assunto = 'Nova doação de cesta básica: ' . $dados['titulo_cesta'];
+    
+    $mensagem = "
+        <h2>Nova doação de cesta básica</h2>
+        <p><strong>Nome/Empresa:</strong> {$dados['nome']}</p>
+        <p><strong>CPF/CNPJ:</strong> {$dados['cpfCnpj']}</p>
+        <p><strong>WhatsApp:</strong> {$dados['whatsapp']}</p>
+        <p><strong>E-mail:</strong> {$dados['email']}</p>
+        <p><strong>Conheceu a ONG por:</strong> {$dados['conheceu']}</p>
+        <p><strong>Cesta:</strong> {$dados['titulo_cesta']}</p>
+        <p><strong>Quantidade:</strong> {$dados['quantidade']}</p>
+        <p><strong>Valor unitário:</strong> {$dados['valor_cesta']}</p>
+        <p><strong>Total:</strong> {$dados['total']}</p>
+    ";
+
+    $headers = array('Content-Type: text/html; charset=UTF-8');
+    
+    $enviado = wp_mail($email_admin, $assunto, $mensagem, $headers);
+
+    if ($enviado) {
+        wp_send_json_success('Formulário enviado com sucesso!');
+    } else {
+        wp_send_json_error('Erro ao enviar e-mail.');
+    }
 }
