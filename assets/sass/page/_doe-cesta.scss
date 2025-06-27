@@ -292,8 +292,9 @@ hr.divisor {
   gap: 15px;
   align-items: center;
   justify-items: center;
-
-  img {
+  max-height: 700px;
+  overflow: auto;
+  position: relative img {
     width: 250px;
   }
 
