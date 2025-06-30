@@ -143,6 +143,13 @@ get_header();
   <?php endwhile; endif; ?>
 </div>
 
+<?php
+// $fields = CFS()->get();
+// echo '<pre>';
+// print_r($fields);
+// echo '</pre>';
+?>
+
 <?php get_footer(); ?>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/lib/vue-the-mask.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
@@ -352,6 +359,9 @@ new Vue({
       if (!this.form.whatsapp) this.erros.whatsapp = 'WhatsApp é obrigatório.';
       if (!this.form.email) this.erros.email = 'E-mail é obrigatório.';
       if (!this.form.conheceu) this.erros.conheceu = 'Informe onde conheceu a ONG.';
+      console.log(this.doacoes.e_mail_do_vendedor);
+      console.log(this.cesta.e_mail_do_vendedor);
+
 
       if (Object.values(this.erros).every(e => !e)) {
         this.loading = true;
@@ -372,7 +382,8 @@ new Vue({
               conheceu: this.form.conheceu,
               titulo_cesta: this.titulo_cesta,
               valor_cesta: this.valor_cesta,
-              total: this.total
+              total: this.total,
+              e_mail_do_vendedor: this.cesta.e_mail_do_vendedor
             })
           });
 

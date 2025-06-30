@@ -22,8 +22,11 @@ function enviar_doacao_cesta() {
         'total' => sanitize_text_field($_POST['total'])
     );
 
-    // Aqui você pode adicionar lógica para enviar e-mail ou salvar no banco de dados
-    $email_admin = get_option('admin_email');
+    // Get the vendor email from the form or use admin email as fallback
+    $email_vendedor = !empty($_POST['e_mail_do_vendedor']) ? 
+        sanitize_email($_POST['e_mail_do_vendedor']) : 
+        get_option('admin_email');
+    
     $assunto = 'Nova doação de cesta básica: ' . $dados['titulo_cesta'];
     
     $mensagem = "
@@ -41,8 +44,15 @@ function enviar_doacao_cesta() {
 
     $headers = array('Content-Type: text/html; charset=UTF-8');
     
-    $enviado = wp_mail($email_admin, $assunto, $mensagem, $headers);
+    $enviado = wp_mail($email_vendedor, $assunto, $mensagem, $headers);
 
+    if (!is_email($email_vendedor)) {
+        wp_send_json_error('Endereço de e-mail do vendedor inválido.');
+    }
+    
+        if (!is_email($email_vendedor)) {
+            wp_send_json_error('Endereço de e-mail do vendedor inválido.');
+        }
     if ($enviado) {
         wp_send_json_success('Formulário enviado com sucesso!');
     } else {
