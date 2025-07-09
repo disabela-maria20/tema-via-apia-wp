@@ -64,14 +64,12 @@ get_header();
           <div class="form-area">
             <div class="grid grid-2-md gap-10 form-input">
               <label>
-                <input type="text" v-model="form.nome" placeholder="Nome/Empresa*" required
-                  @input="limparEspacos('nome')">
+                <input type="text" v-model="form.nome" placeholder="Nome/Empresa*" required>
                 <span v-if="erros.nome" class="error">{{ erros.nome }}</span>
               </label>
               <label>
-                <the-mask :mask="[' ###.###.###-##', '##.###.###/####-##' ]" type="text" v-model="form.cpfCnpj"
-                  placeholder="CPF ou CNPJ*" required @input="limparEspacos('cpfCnpj')" @blur="validarCpfCnpj">
-                </the-mask>
+                <the-mask :mask="['###.###.###-##', '##.###.###/####-##']" type="text" v-model="form.cpfCnpj"
+                  placeholder="CPF ou CNPJ*" required @blur="validarCpfCnpj" />
                 <span v-if="erros.cpfCnpj" class="error">{{ erros.cpfCnpj }}</span>
               </label>
             </div>

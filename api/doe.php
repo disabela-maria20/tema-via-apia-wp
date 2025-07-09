@@ -1,15 +1,12 @@
 <?php
-// Adicionar ação AJAX para enviar doação
 add_action('wp_ajax_enviar_doacao_cesta', 'enviar_doacao_cesta');
 add_action('wp_ajax_nopriv_enviar_doacao_cesta', 'enviar_doacao_cesta');
 
 function enviar_doacao_cesta() {
-    // Verificar nonce
     if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'doacao_cesta_nonce')) {
         wp_send_json_error('Requisição inválida.');
     }
 
-    // Sanitizar dados
     $dados = array(
         'nome' => sanitize_text_field($_POST['nome']),
         'cpfCnpj' => sanitize_text_field($_POST['cpfCnpj']),
@@ -22,13 +19,16 @@ function enviar_doacao_cesta() {
         'total' => sanitize_text_field($_POST['total'])
     );
 
-    // Get the vendor email from the form or use admin email as fallback
     $email_vendedor = !empty($_POST['e_mail_do_vendedor']) ? 
         sanitize_email($_POST['e_mail_do_vendedor']) : 
         get_option('admin_email');
-    
+
+    if (!is_email($email_vendedor) || !is_email($dados['email'])) {
+        wp_send_json_error('Endereço de e-mail inválido.');
+    }
+
     $assunto = 'Nova doação de cesta básica: ' . $dados['titulo_cesta'];
-    
+
     $mensagem = "
         <h2>Nova doação de cesta básica</h2>
         <p><strong>Nome/Empresa:</strong> {$dados['nome']}</p>
@@ -43,16 +43,10 @@ function enviar_doacao_cesta() {
     ";
 
     $headers = array('Content-Type: text/html; charset=UTF-8');
-    
-    $enviado = wp_mail($email_vendedor, $assunto, $mensagem, $headers);
+    $destinatarios = array($email_vendedor, $dados['email'], "renata.alfieri@viaapiafoods.com.br");
 
-    if (!is_email($email_vendedor)) {
-        wp_send_json_error('Endereço de e-mail do vendedor inválido.');
-    }
-    
-        if (!is_email($email_vendedor)) {
-            wp_send_json_error('Endereço de e-mail do vendedor inválido.');
-        }
+    $enviado = wp_mail($destinatarios, $assunto, $mensagem, $headers);
+
     if ($enviado) {
         wp_send_json_success('Formulário enviado com sucesso!');
     } else {

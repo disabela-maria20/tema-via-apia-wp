@@ -25,13 +25,12 @@
       </div>
       <div class="contato">
         <address>
-          Rua Miro Vetorazzo, 1661
-          Demarchi São Bernardo do Campo - SP
-          CEP: 09820-135
+          Rua Miro Vetorazzo, 1661 Demarchi São Bernardo do Campo - SP CEP: 09820-135
         </address>
+        <p>CNPJ: 00.288.948/0001-94</p>
+        <a href="tel:+55 (11) 99463-8310">+55 (11) 99463-8310</a>
         <a href="tel:+55 (11) 2251.6115">+55 (11) 2251.6115</a>
         <a href="mailto:contato@viaapiafoods.com.br">contato@viaapiafoods.com.br</a>
-        <p>CNPJ: 00.288.948/0001-94</p>
       </div>
       <nav>
         <?php
