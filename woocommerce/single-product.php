@@ -109,7 +109,8 @@ if (!empty($categories)) {
               $whatsapp_message = "Olá, estou interessado no produto: $product_name.";
               $whatsapp_link = "https://api.whatsapp.com/send?phone=$whatsapp_number&text=$whatsapp_message";
             ?>
-            <button class="cta-comprar" onclick="window.location.href='<?php echo esc_url($whatsapp_link); ?>'">
+            <button class="cta-comprar"
+              onclick="window.location.href='<?php echo esc_url($whatsapp_link); ?>'; window.lintrk('track', { conversion_id: 23400433 });">
               Comprar
             </button>
 
